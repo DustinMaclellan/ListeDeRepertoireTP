@@ -8,6 +8,7 @@ import Page404 from './pages/Page404';
 import PageEnvoyerDemande from './pages/PageEnvoyerDemande';
 import PageListeDemandes from './pages/PageListeDemandes';
 import PageConnexion from './pages/PageConnexion';
+import PageAjoutUtlisateur from './pages/PageAjoutUtilisateur';
 import BarreNavigation from './composants/BarreNavigation';
 
 import './App.css';
@@ -34,6 +35,7 @@ function App() {
           <Route path="/modifier/:id" component={PageModifier} />
           <Route path="/supprimer/:id" component={PageSupprimer} />
           <Route path="/connexion" component={PageConnexion} />
+          <Route path="/creerUtilisateur" component={PageAjoutUtlisateur}/>
           <Route component={Page404} />
         </Switch>        
       </Container>
