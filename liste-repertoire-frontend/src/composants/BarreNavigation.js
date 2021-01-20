@@ -5,7 +5,8 @@ import Nav from 'react-bootstrap/Nav';
 
 function BarreNavigation() {
     return (
-        <Navbar bg="light" expand="sm">
+        <Navbar className="navbar-dark bg-dark" >
+        <Navbar.Brand href="/">Maison</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
@@ -23,7 +24,7 @@ function BarreNavigation() {
                     </LinkContainer>                   
                 </Nav>
                 <LinkContainer to="/connexion">
-                <Button className="btn btn-lg float-right">Connexion</Button> 
+                <Button className="btn btn-success float-right">Connexion</Button> 
                 </LinkContainer>
             </Navbar.Collapse>
         </Navbar>
