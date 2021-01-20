@@ -1,6 +1,6 @@
 import React from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
-import Navbar from 'react-bootstrap/Navbar';
+import {Navbar,Button} from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 
 function BarreNavigation() {
@@ -20,10 +20,14 @@ function BarreNavigation() {
                     </LinkContainer>
                     <LinkContainer to="/admin">
                         <Nav.Link>Admin</Nav.Link>
-                    </LinkContainer>            
+                    </LinkContainer>                   
                 </Nav>
+                <LinkContainer to="/connexion">
+                <Button className="btn btn-lg float-right">Connexion</Button> 
+                </LinkContainer>
             </Navbar.Collapse>
         </Navbar>
+        
     );
 }
 
