@@ -1,8 +1,11 @@
 import { react, useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
+import { UtiliserAuth } from '../context/auth';
 
 function FormulaireLogin() {
+
+  const { setAuthentification } = UtiliserAuth();
   const [nomUtilisateur, setNomUtilisateur] = useState();
   const [motDePasse, setMotDePasse] = useState();
   const [rediriger, setRediriger] = useState();
@@ -21,6 +24,7 @@ function FormulaireLogin() {
     });
 
     if (body == "true") {
+      setAuthentification(true);
       setRediriger(true);
     } else {
       alert("Il n'existe pas de login");
@@ -33,7 +37,7 @@ function FormulaireLogin() {
     }
 
     if (rediriger === true && nomUtilisateur !== "admin") {
-      return <Redirect to="/connexion" />;
+      return <Redirect to="/" />;
     }
   }
 
