@@ -137,20 +137,45 @@ app.put('/api/demandes/ajouter', (requete, reponse) => {
     }
 });
 
-app.get('/api/utilisateur/verification', (requete, reponse) => {
+app.post('/api/utilisateur/verification', (requete, reponse) => {
     const { nomUtilisateur, motDePasse } = requete.body;
 
     if (nomUtilisateur !== undefined || motDePasse !== undefined) {
         utiliserDB(async (db) => {
             const verificationUtilisateur = await db.collection('utilisateurs').findOne({ nomUtilisateur: nomUtilisateur, motDePasse: motDePasse })
-                    if (verificationUtilisateur != undefined) {
-                        reponse.send("true");
-                    }
-                    else {
-                        reponse.send("false");
-                    }
-        });
+                if (verificationUtilisateur != undefined) {
+                    reponse.status(200).json("true");
+                }
+                else {
+                    reponse.status(400).json("false");
+                }
+            });
     }
 });
 
+app.post('/api/registraire', (requete, reponse) => {
+    const { nomUtilisateur, motDePasse } = requete.body;
+
+    if (nomUtilisateur !== undefined && motDePasse !== undefined) {
+        utiliserDB(async (db) => {
+            if(await db.collection('utilisateurs').findOne({ nomUtilisateur: nomUtilisateur, motDePasse: motDePasse })){
+                reponse.status(200).send("Utilisateur existe deja");
+            }
+            else {
+                await db.collection('utilisateurs').insertOne({
+                    nomUtilisateur: nomUtilisateur,
+                    motDePasse: motDePasse
+                });
+                reponse.status(200).send("Utilisateur ajouté");
+            }
+        }, reponse).catch(
+            () => reponse.status(500).send("Erreur : l'utilisateur existe deja")
+        );
+    }
+    else {
+        reponse.status(500).send(`Certains paramètres ne sont pas définis :
+            - nomUtilisateur: ${nomUtilisateur}
+            - motDePasse: ${motDePasse}`);
+    }
+});
 app.listen(8000, () => console.log("Serveur démarré sur le port 8000"));
