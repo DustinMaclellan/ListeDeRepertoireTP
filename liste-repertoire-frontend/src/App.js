@@ -7,7 +7,9 @@ import PageSupprimer from './pages/PageSupprimer';
 import Page404 from './pages/Page404';
 import PageEnvoyerDemande from './pages/PageEnvoyerDemande';
 import PageListeDemandes from './pages/PageListeDemandes';
+import PageConnexion from './pages/PageConnexion';
 import BarreNavigation from './composants/BarreNavigation';
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
@@ -20,8 +22,8 @@ import {
 function App() {
   return (
     <Router>
+    <BarreNavigation />
       <Container>
-        <BarreNavigation />
         <Switch>
           <Route path="/" component={PageAccueil} exact />
           <Route path="/repertoire" component={PageRepertoire} />
@@ -31,6 +33,7 @@ function App() {
           <Route path="/ajouter" component={PageAjouter} />
           <Route path="/modifier/:id" component={PageModifier} />
           <Route path="/supprimer/:id" component={PageSupprimer} />
+          <Route path="/connexion" component={PageConnexion} />
           <Route component={Page404} />
         </Switch>        
       </Container>
