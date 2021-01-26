@@ -117,13 +117,15 @@ app.get('/api/demandes', (requete, reponse) => {
 
 app.put('/api/demandes/ajouter', (requete, reponse) => {
     const { nom, pieces } = requete.body;
+    var objet_Date = new Date();
 
     if (nom !== undefined && pieces !== undefined) {
         utiliserDB(async (db) => {
             await db.collection('demandes').insertOne({
                 nom: nom,
                 pieces: pieces,
-
+                ajoutDate: objet_Date,
+                actif: 1
             });
 
             reponse.status(200).send("Demande ajoutée");
@@ -134,7 +136,8 @@ app.put('/api/demandes/ajouter', (requete, reponse) => {
     else {
         reponse.status(500).send(`Certains paramètres ne sont pas définis :
             - nom: ${nom}
-            - pieces: ${pieces}`);
+            - pieces: ${pieces}
+            - ajoutDate : ${objet_Date}`);
     }
 });
 
