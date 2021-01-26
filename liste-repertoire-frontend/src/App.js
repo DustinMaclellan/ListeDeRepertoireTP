@@ -11,27 +11,31 @@ import PageConnexion from "./pages/PageConnexion";
 import PageAjoutUtlisateur from "./pages/PageAjoutUtilisateur";
 import BarreNavigation from "./composants/BarreNavigation";
 import { ContexteAuth } from "./context/auth";
+import RoutePrivee from "./composants/RoutePrivee";
+import RouteAdmin from "./composants/RouteAdmin";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useState } from "react";
+import { Form } from "react-bootstrap";
 
 function App() {
 
   const [authentification, setAuthentification] = useState(false);
+  const [authentificationAdmin, setAuthentificationAdmin] = useState(false);
 
   return (
-    <ContexteAuth.Provider value={{authentification, setAuthentification}}>
+    <ContexteAuth.Provider value={{authentification, authentificationAdmin,setAuthentification,setAuthentificationAdmin}}>
       <Router>
         <BarreNavigation />
         <Container>
           <Switch>
             <Route path="/" component={PageAccueil} exact />
             <Route path="/repertoire" component={PageRepertoire} />
-            <Route path="/admin" component={PageAdmin} />
-            <Route path="/demande-speciale" component={PageEnvoyerDemande} />
+            <RouteAdmin path="/admin" component={PageAdmin} />
+            <RoutePrivee path="/demande-speciale" component={PageEnvoyerDemande} />
             <Route path="/liste-demandes" component={PageListeDemandes} />
             <Route path="/ajouter" component={PageAjouter} />
             <Route path="/modifier/:id" component={PageModifier} />
