@@ -5,7 +5,7 @@ import { UtiliserAuth } from '../context/auth';
 
 function FormulaireLogin() {
 
-  const { setAuthentification } = UtiliserAuth();
+  const { setAuthentification,setAuthentificationAdmin } = UtiliserAuth();
   const [nomUtilisateur, setNomUtilisateur] = useState();
   const [motDePasse, setMotDePasse] = useState();
   const [rediriger, setRediriger] = useState();
@@ -24,6 +24,11 @@ function FormulaireLogin() {
     });
 
     if (body == "true") {
+      setAuthentification(true);
+      setRediriger(true);
+    }
+    else if( body == "admin"){
+      setAuthentificationAdmin(true);
       setAuthentification(true);
       setRediriger(true);
     } else {
