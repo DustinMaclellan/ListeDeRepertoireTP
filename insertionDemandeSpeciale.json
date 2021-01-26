@@ -1,20 +1,56 @@
 [{
     "NomClient": "Sylvain",
-    "Artiste": "Joe Dassin",
-    "Titre": "Le jardin du Luxembourg"
+    "pieces": [
+        {
+            "titre": "aaaaaaaaa",
+            "artiste": "aaaaaaaaaaa",
+            "categories": ["aaaaaaaa", "sssssssss"]
+        },{
+            "titre": "fffffffffffff",
+            "artiste": "fffffffffff",
+            "categories": ["fffffffffff", "fffffffffff"]
+        }
+    ],
+    "DateAjout": "",
+    "actif": 1
 },
 {
-    "NomClient": "Bob",
-    "Artiste": "Eric Lapointe",
-    "Titre": "Belle dans tete"
+    "NomClient": "Sylvain",
+    "pieces": [
+        {
+            "titre": "",
+            "artiste": "",
+            "categories": ["", ""]
+        }
+    ],
+    "DateAjout": "",
+    "actif": 1
 },
 {
-    "NomClient": "Bleu",
-    "Artiste": "Eiffel99",
-    "Titre": "I'm blue"
+    "NomClient": "Sylvain",
+    "pieces": [
+        {
+            "titre": "",
+            "artiste": "",
+            "categories": ["", ""]
+        }
+    ],
+    "DateAjout": "",
+    "actif": 1
 },
 {
-    "NomClient": "Carol",
-    "Artiste": "Johnny Farago",
-    "Titre": "Trois petit coup"
+    "NomClient": "Sylvain",
+    "pieces": [
+        {
+            "titre": "",
+            "artiste": "",
+            "categories": ["", ""]
+        },{
+            "titre": "",
+            "artiste": "",
+            "categories": ["", ""]
+        }
+    ],
+    "DateAjout": "",
+    "actif": 1
 }]
