@@ -122,7 +122,8 @@ app.put('/api/demandes/ajouter', (requete, reponse) => {
         utiliserDB(async (db) => {
             await db.collection('demandes').insertOne({
                 nom: nom,
-                pieces: pieces
+                pieces: pieces,
+
             });
 
             reponse.status(200).send("Demande ajoutée");
@@ -144,7 +145,12 @@ app.post('/api/utilisateur/verification', (requete, reponse) => {
         utiliserDB(async (db) => {
             const verificationUtilisateur = await db.collection('utilisateurs').findOne({ nomUtilisateur: nomUtilisateur, motDePasse: motDePasse })
                 if (verificationUtilisateur != undefined) {
-                    reponse.status(200).json("true");
+                    if(nomUtilisateur == "admin"){
+                        reponse.status(200).json("admin");
+                    }
+                    else {
+                        reponse.status(200).json("true");
+                    }
                 }
                 else {
                     reponse.status(400).json("false");
