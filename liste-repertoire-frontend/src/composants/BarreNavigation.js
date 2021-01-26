@@ -9,6 +9,7 @@ function BarreNavigation() {
 
   const handleClick = () => {
     authentification(false);
+    authentificationAdmin(false);
   };
 
   return (
@@ -24,10 +25,10 @@ function BarreNavigation() {
             <Nav.Link>Repertoire</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/demande-speciale">
-            <Nav.Link>Demande spéciale</Nav.Link>
+            <Nav.Link className={authentification ? "d-block":"d-none"} >Demande spéciale</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/admin">
-            <Nav.Link>Admin</Nav.Link>
+            <Nav.Link className={authentificationAdmin ? "d-block":"d-none"} >Admin</Nav.Link>
           </LinkContainer>
         </Nav>
         {authentification == true || authentificationAdmin  ? (
