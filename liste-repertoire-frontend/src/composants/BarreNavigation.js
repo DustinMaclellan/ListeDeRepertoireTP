@@ -5,7 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import { UtiliserAuth } from "../context/auth";
 
 function BarreNavigation() {
-  const { authentification } = UtiliserAuth();
+  const { authentification, authentificationAdmin } = UtiliserAuth();
 
   const handleClick = () => {
     authentification(false);
@@ -30,7 +30,7 @@ function BarreNavigation() {
             <Nav.Link>Admin</Nav.Link>
           </LinkContainer>
         </Nav>
-        {authentification == true ? (
+        {authentification == true || authentificationAdmin  ? (
           <LinkContainer to="/connexion">
             <Button
               className="btn btn-danger float-right"
