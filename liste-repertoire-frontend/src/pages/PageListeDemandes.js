@@ -47,17 +47,17 @@ function PageListeDemandes() {
                             <Table striped bordered hover >
                                 <thead>
                                     <tr>
-                                        <th scope="col">Nom Client</th>
-                                        <th scope="col">Pieces</th>
-                                        <th scope="col-2-lg">Modifier Etat</th>
+                                        <th>Nom Client</th>
+                                        <th>Pieces</th>
+                                        <th>Modifier Etat</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><h4>{listeDemandes[keys].NomClient}</h4></td>
+                                        <td><h4>{listeDemandes[keys].nomClient}</h4></td>
                                         <td>
                                             {Object.keys(listeDemandes[keys].pieces).map((chanson) =>
-                                                <ul>
+                                                <ul>                                                
                                                     <li>Titre: {listeDemandes[keys].pieces[chanson].titre}</li>
                                                     <li>Artiste: {listeDemandes[keys].pieces[chanson].artiste}</li>
                                                     <li>Categories: </li>
