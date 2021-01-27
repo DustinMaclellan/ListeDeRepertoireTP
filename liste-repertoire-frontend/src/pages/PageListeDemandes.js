@@ -5,38 +5,81 @@ import {
 } from 'react';
 
 import ListGroup from 'react-bootstrap/ListGroup';
+import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
 
 function PageListeDemandes() {
-    const [listeDemandes, setListeDemandes] = useState([]);
+    const [listeDemandes, setListeDemandes] = useState({});
+    const [verification, setVerification] = useState(false);
 
     useEffect(() => {
         const chercherDonnees = async () => {
             const resultat = await fetch(`/api/demandes`);
-            const body = await resultat.json().catch((error) => {console.log(error)});
+            const body = await resultat.json().catch((error) => { console.log(error) });
             setListeDemandes(body);
         };
         chercherDonnees();
-    }, []);
+    }, [verification]);
+
+
+    const ChangementEtat = async (id) => {
+
+        await fetch(`/api/demandes/inactive/${id}`, {
+            method: 'put',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+    }
+
+    function handleClick(id) {
+        ChangementEtat(id);
+        setVerification(!verification);
+    }
 
     return (
         <>
             <h1>Demandes spéciales</h1>
             <ListGroup>
-            {
-                listeDemandes.map(demande => 
-                    <ListGroup.Item>
-                        <h4>{demande.nom}</h4>
-                        <ul>
-                        {
-                            demande.pieces.map(piece => <li>{piece}</li>)
-                        }
-                        </ul>
-                        
-                    </ListGroup.Item>
-                )
-            }
+                {
+                    Object.keys(listeDemandes).map((keys) =>
+                        <ListGroup.Item className={listeDemandes[keys].actif === 1 ? "d-block" : "d-none"}>
+                            <Table striped bordered hover >
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nom Client</th>
+                                        <th scope="col">Pieces</th>
+                                        <th scope="col-2-lg">Modifier Etat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><h4>{listeDemandes[keys].NomClient}</h4></td>
+                                        <td>
+                                            {Object.keys(listeDemandes[keys].pieces).map((chanson) =>
+                                                <ul>
+                                                    <li>Titre: {listeDemandes[keys].pieces[chanson].titre}</li>
+                                                    <li>Artiste: {listeDemandes[keys].pieces[chanson].artiste}</li>
+                                                    <li>Categories: </li>
+                                                    <ol>
+                                                        {listeDemandes[keys].pieces[chanson].categories.map((element) =>
+                                                            <li>{element}</li>
+                                                        )}
+                                                    </ol>
+                                                </ul>
+                                            )}
+                                        </td>
+                                        <td> {listeDemandes[keys].actif === 1 ? (
+                                            <Button variant="warning" onClick={() => handleClick(listeDemandes[keys]._id)}>Rendre inactive</Button>
+                                        ) : (<h4>Demande inactive</h4>)}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </Table>
+                        </ListGroup.Item>
+                    )
+                }
             </ListGroup>
-            
         </>
     );
 }
