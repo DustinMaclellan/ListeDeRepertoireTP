@@ -120,14 +120,26 @@ app.get('/api/demandes', (requete, reponse) => {
     );
 });
 
+app.get('/api/demandes/:id', (requete, reponse) => {
+    const id = requete.params.id;
+    
+    utiliserDB(async (db) => {
+        var objectId = ObjectID.createFromHexString(id);
+        const listeDemandesClient = await db.collection('demandes').findOne({ _id: objectId})
+        reponse.status(200).json(listeDemandesClient);
+    }, reponse).catch(
+        () => reponse.status(500).send("Erreur lors de la requête")
+    );
+});
+
 app.put('/api/demandes/ajouter', (requete, reponse) => {
-    const { nom, pieces } = requete.body;
+    const { nomClient, pieces } = requete.body;
     var objet_Date = new Date();
 
     if (nom !== undefined && pieces !== undefined) {
         utiliserDB(async (db) => {
             await db.collection('demandes').insertOne({
-                nom: nom,
+                nom: nomClient,
                 pieces: pieces,
                 ajoutDate: objet_Date,
                 actif: 1
@@ -145,6 +157,7 @@ app.put('/api/demandes/ajouter', (requete, reponse) => {
             - ajoutDate : ${objet_Date}`);
     }
 });
+
 
 app.put('/api/demandes/inactive/:id', (requete, reponse) => {
     const id = requete.params.id;
