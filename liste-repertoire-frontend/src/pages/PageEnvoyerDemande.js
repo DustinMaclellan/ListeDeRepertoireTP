@@ -22,11 +22,11 @@ function PageEnvoyerDemande() {
   }, []);
 
   const envoyerDemande = async () => {
-    const pieces = listePieces;
+    const pieces = Object.values(listeDemandes);
 
     await fetch(`/api/demandes/ajouter`, {
       method: "put",
-      body: JSON.stringify({ nom, pieces }),
+      body: JSON.stringify({ nom, pieces}),
       headers: {
         "Content-Type": "application/json",
       },
@@ -42,7 +42,7 @@ function PageEnvoyerDemande() {
 
     if (listeDemandes[id] === undefined) {
       const piece = listePieces.find((piece) => piece._id === id);
-      nouvelleListeDemandes[id] = `${piece.titre} - ${piece.artiste}`;
+      nouvelleListeDemandes[id] = piece;
     } else {
       delete nouvelleListeDemandes[id];
     }
