@@ -122,7 +122,7 @@ app.get('/api/demandes', (requete, reponse) => {
 
 app.get('/api/demandes/:id', (requete, reponse) => {
     const id = requete.params.id;
-    
+
     utiliserDB(async (db) => {
         var objectId = ObjectID.createFromHexString(id);
         const listeDemandesClient = await db.collection('demandes').findOne({ _id: objectId})
@@ -133,13 +133,14 @@ app.get('/api/demandes/:id', (requete, reponse) => {
 });
 
 app.put('/api/demandes/ajouter', (requete, reponse) => {
-    const { nomClient, pieces } = requete.body;
+    const { nom, pieces } = requete.body;
     var objet_Date = new Date();
+    console.log(pieces);
 
     if (nom !== undefined && pieces !== undefined) {
         utiliserDB(async (db) => {
             await db.collection('demandes').insertOne({
-                nom: nomClient,
+                nomClient: nom,
                 pieces: pieces,
                 ajoutDate: objet_Date,
                 actif: 1
