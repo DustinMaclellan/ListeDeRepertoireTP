@@ -22,7 +22,7 @@ function PageEnvoyerDemande() {
   }, []);
 
   const envoyerDemande = async () => {
-    const pieces = Object.values(listeDemandes);
+    const pieces = listePieces;
 
     await fetch(`/api/demandes/ajouter`, {
       method: "put",
