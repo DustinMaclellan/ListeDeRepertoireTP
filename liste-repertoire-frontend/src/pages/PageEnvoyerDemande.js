@@ -5,7 +5,6 @@ import Alert from "react-bootstrap/Alert";
 import ListePieces from "../composants/ListePieces";
 
 function PageEnvoyerDemande() {
-  const [nom, setNom] = useState("");
   const [listePieces, setListePieces] = useState([]);
   const [listeDemandes, setListeDemandes] = useState({});
   const [confirmation, setConfirmation] = useState(false);
@@ -23,7 +22,7 @@ function PageEnvoyerDemande() {
 
   const envoyerDemande = async () => {
     const pieces = Object.values(listeDemandes);
-
+    const nom = localStorage.getItem('user');
     await fetch(`/api/demandes/ajouter`, {
       method: "put",
       body: JSON.stringify({ nom, pieces}),
@@ -31,7 +30,6 @@ function PageEnvoyerDemande() {
         "Content-Type": "application/json",
       },
     });
-    setNom("");
     setListeDemandes({});
     setConfirmation(true);
   };
@@ -59,16 +57,7 @@ function PageEnvoyerDemande() {
   return (
     <>
       <h1>Envoyer une demande spéciale</h1>
-      <Form className="mb-1">
-        <Form.Group>
-          <Form.Label>Votre nom</Form.Label>
-          <Form.Control
-            type="text"
-            value={nom}
-            onChange={(event) => setNom(event.target.value)}
-          />
-        </Form.Group>
-      </Form>
+  
 
       <ListePieces
         pieces={listePieces}
