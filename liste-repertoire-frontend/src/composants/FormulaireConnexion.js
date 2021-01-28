@@ -1,4 +1,4 @@
-import { react, useState } from "react";
+import {  useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { UtiliserAuth } from '../context/auth';
@@ -9,6 +9,9 @@ function FormulaireLogin() {
   const [nomUtilisateur, setNomUtilisateur] = useState();
   const [motDePasse, setMotDePasse] = useState();
   const [rediriger, setRediriger] = useState();
+
+  
+  sessionStorage.clear(); //valider necessite
 
   const validationBaseDeDonnees = async () => {
     const resultat = await fetch(`/api/utilisateur/verification`, {
@@ -26,7 +29,7 @@ function FormulaireLogin() {
     if (body == "true") {
       setAuthentification(true);
       setRediriger(true);
-      localStorage.setItem('user',nomUtilisateur);
+      sessionStorage.setItem('user',nomUtilisateur);
     }
     else if( body == "admin"){
       setAuthentificationAdmin(true);
@@ -36,6 +39,10 @@ function FormulaireLogin() {
       alert("Il n'existe pas de login");
     }
   };
+  console.log(sessionStorage.getItem('user'));
+  
+
+
 
   function afficherRedirection() {
     if (rediriger === true && nomUtilisateur == "admin") {

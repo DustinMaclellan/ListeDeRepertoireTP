@@ -22,7 +22,7 @@ function PageEnvoyerDemande() {
 
   const envoyerDemande = async () => {
     const pieces = Object.values(listeDemandes);
-    const nom = localStorage.getItem('user');
+    const nom = sessionStorage.getItem('user');
     await fetch(`/api/demandes/ajouter`, {
       method: "put",
       body: JSON.stringify({ nom, pieces}),
