@@ -10,6 +10,7 @@ function BarreNavigation() {
   const handleClick = () => {
     authentification(false);
     authentificationAdmin(false);
+    localStorage.clear();
   };
 
   return (

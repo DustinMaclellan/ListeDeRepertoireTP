@@ -26,6 +26,7 @@ function FormulaireLogin() {
     if (body == "true") {
       setAuthentification(true);
       setRediriger(true);
+      localStorage.setItem('user',nomUtilisateur);
     }
     else if( body == "admin"){
       setAuthentificationAdmin(true);
