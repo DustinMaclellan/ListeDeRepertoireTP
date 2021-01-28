@@ -120,12 +120,11 @@ app.get('/api/demandes', (requete, reponse) => {
     );
 });
 
-app.get('/api/demandes/:id', (requete, reponse) => {
-    const id = requete.params.id;
+app.get('/api/demandes/:nomClient', (requete, reponse) => {
+    const id = requete.params.nomClient;
 
     utiliserDB(async (db) => {
-        var objectId = ObjectID.createFromHexString(id);
-        const listeDemandesClient = await db.collection('demandes').findOne({ _id: objectId})
+        const listeDemandesClient = await db.collection('demandes').findOne({ nomClient: nomClient})
         reponse.status(200).json(listeDemandesClient);
     }, reponse).catch(
         () => reponse.status(500).send("Erreur lors de la requête")
