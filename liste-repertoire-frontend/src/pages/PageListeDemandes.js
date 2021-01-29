@@ -57,10 +57,10 @@ function PageListeDemandes() {
                                         <td><h4>{listeDemandes[keys].nomClient}</h4></td>
                                         <td>
                                             {Object.keys(listeDemandes[keys].pieces).map((chanson) =>
-                                                <ul>                                                
-                                                    <li>Titre: {listeDemandes[keys].pieces[chanson].titre}</li>
-                                                    <li>Artiste: {listeDemandes[keys].pieces[chanson].artiste}</li>
-                                                    <li>Categories: </li>
+                                                <ul >                                                
+                                                    <li><b>Titre:</b> {listeDemandes[keys].pieces[chanson].titre}</li>
+                                                    <li><b>Artiste: </b>{listeDemandes[keys].pieces[chanson].artiste}</li>
+                                                    <li><b>Categories:</b> </li>
                                                     <ol>
                                                         {listeDemandes[keys].pieces[chanson].categories.map((element) =>
                                                             <li>{element}</li>
