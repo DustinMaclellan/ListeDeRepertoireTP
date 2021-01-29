@@ -6,7 +6,6 @@ import PageModifier from "./pages/PageModifier";
 import PageSupprimer from "./pages/PageSupprimer";
 import Page404 from "./pages/Page404";
 import PageEnvoyerDemande from "./pages/PageEnvoyerDemande";
-import AfficherHistorique from "./pages/PageAfficherHistorique";
 import PageListeDemandes from "./pages/PageListeDemandes";
 import PageConnexion from "./pages/PageConnexion";
 import PageAjoutUtlisateur from "./pages/PageAjoutUtilisateur";
@@ -39,7 +38,6 @@ function App() {
             <RoutePrivee path="/demande-speciale" component={PageEnvoyerDemande} />
             <Route path="/liste-demandes" component={PageListeDemandes} />
             <Route path="/ajouter" component={PageAjouter} />
-            <Route path="/afficherHistorique" component={AfficherHistorique} />
             <Route path="/modifier/:id" component={PageModifier} />
             <Route path="/supprimer/:id" component={PageSupprimer} />
             <Route path="/connexion" component={PageConnexion} />
