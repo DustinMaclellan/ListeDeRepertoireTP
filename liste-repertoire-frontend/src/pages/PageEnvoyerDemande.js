@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from "react";
+import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import ListePieces from "../composants/ListePieces";
@@ -21,8 +22,7 @@ function PageEnvoyerDemande() {
 
   const envoyerDemande = async () => {
     const pieces = Object.values(listeDemandes);
-    const nom = localStorage.getItem('user');
-
+    const nom = sessionStorage.getItem('user');
     await fetch(`/api/demandes/ajouter`, {
       method: "put",
       body: JSON.stringify({ nom, pieces}),
@@ -57,7 +57,8 @@ function PageEnvoyerDemande() {
   return (
     <>
       <h1>Envoyer une demande spéciale</h1>
-      
+  
+
       <ListePieces
         pieces={listePieces}
         handleClick={handleClickPiece}

@@ -8,9 +8,9 @@ function BarreNavigation() {
   const { authentification, authentificationAdmin } = UtiliserAuth();
 
   const handleClick = () => {
+    localStorage.clear();
     authentification(false);
     authentificationAdmin(false);
-    localStorage.clear();
   };
 
   return (
