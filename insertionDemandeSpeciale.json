@@ -2,53 +2,45 @@
     "NomClient": "Sylvain",
     "pieces": [
         {
-            "titre": "aaaaaaaaa",
-            "artiste": "aaaaaaaaaaa",
-            "categories": ["aaaaaaaa", "sssssssss"]
+            "titre": "First Date",
+            "artiste": "Blink-182",
+            "categories": ["Pop Rock", ""]
         },{
-            "titre": "fffffffffffff",
-            "artiste": "fffffffffff",
-            "categories": ["fffffffffff", "fffffffffff"]
+            "titre": "Beer Can",
+            "artiste": "Luke Combs",
+            "categories": ["Country", "Jazz"]
         }
     ],
     "DateAjout": "",
     "actif": 1
 },
 {
-    "NomClient": "Sylvain",
+    "NomClient": "Dustin",
     "pieces": [
         {
-            "titre": "",
-            "artiste": "",
-            "categories": ["", ""]
-        }
-    ],
-    "DateAjout": "",
-    "actif": 1
-},
-{
-    "NomClient": "Sylvain",
-    "pieces": [
-        {
-            "titre": "",
-            "artiste": "",
-            "categories": ["", ""]
-        }
-    ],
-    "DateAjout": "",
-    "actif": 1
-},
-{
-    "NomClient": "Sylvain",
-    "pieces": [
-        {
-            "titre": "",
-            "artiste": "",
-            "categories": ["", ""]
+            "titre": "First Date",
+            "artiste": "Blink-182",
+            "categories": ["Pop Rock", ""]
         },{
-            "titre": "",
-            "artiste": "",
-            "categories": ["", ""]
+            "titre": "Cover me up",
+            "artiste": "Morgan Wallen",
+            "categories": ["Country", "Anglais"]
+        }
+    ],
+    "DateAjout": "",
+    "actif": 1
+},
+{
+    "NomClient": "Yassine",
+    "pieces": [
+        {
+            "titre": "First Date",
+            "artiste": "Blink-182",
+            "categories": ["Pop Rock", ""]
+        },{
+            "titre": "Rival",
+            "artiste": "LANCO",
+            "categories": ["Country", "Smooth"]
         }
     ],
     "DateAjout": "",
