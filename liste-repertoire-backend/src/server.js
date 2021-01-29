@@ -121,7 +121,7 @@ app.get('/api/demandes', (requete, reponse) => {
 });
 
 app.get('/api/demandes/:nomClient', (requete, reponse) => {
-    const id = requete.params.nomClient;
+    const nomClient = requete.params.nomClient;
 
     utiliserDB(async (db) => {
         const listeDemandesClient = await db.collection('demandes').findOne({ nomClient: nomClient})
@@ -134,22 +134,32 @@ app.get('/api/demandes/:nomClient', (requete, reponse) => {
 app.put('/api/demandes/ajouter', (requete, reponse) => {
     const { nom, pieces } = requete.body;
     var objet_Date = new Date();
-    console.log(pieces);
 
     if (nom !== undefined && pieces !== undefined) {
-        utiliserDB(async (db) => {
-            await db.collection('demandes').insertOne({
-                nomClient: nom,
-                pieces: pieces,
-                ajoutDate: objet_Date,
-                actif: 1
-            });
-
-            reponse.status(200).send("Demande ajoutée");
-        }, reponse).catch(
-            () => reponse.status(500).send("Erreur : la demande n'a pas été ajoutée")
-        );
-    }
+            utiliserDB(async (db) => {
+                if(await db.collection('demandes').findOne({ nomClient: nom})){
+                    await db.collection('demandes').updateOne({ nomClient: nom }, {
+                        '$push': {
+                            pieces: { 
+                                '$each': pieces
+                            }
+                        }
+                    });
+                    reponse.status(200).send("Demande modifier");
+                }
+                else {
+                    await db.collection('demandes').insertOne({
+                        nomClient: nom,
+                        pieces: pieces,
+                        dateAjout: objet_Date,
+                        actif: 1
+                    });
+                    reponse.status(200).send("Demande ajouter");
+                }
+            }, reponse).catch(
+                () => reponse.status(500).send("Erreur : la demande n'a pas été ajouter")
+            );
+        }
     else {
         reponse.status(500).send(`Certains paramètres ne sont pas définis :
             - nom: ${nom}
@@ -157,7 +167,6 @@ app.put('/api/demandes/ajouter', (requete, reponse) => {
             - ajoutDate : ${objet_Date}`);
     }
 });
-
 
 app.put('/api/demandes/inactive/:id', (requete, reponse) => {
     const id = requete.params.id;
