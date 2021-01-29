@@ -3,6 +3,7 @@ import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import ListePieces from "../composants/ListePieces";
+import { Link } from 'react-router-dom';
 
 function PageEnvoyerDemande() {
   const [listePieces, setListePieces] = useState([]);
@@ -25,7 +26,7 @@ function PageEnvoyerDemande() {
     const nom = sessionStorage.getItem('user');
     await fetch(`/api/demandes/ajouter`, {
       method: "put",
-      body: JSON.stringify({ nom, pieces}),
+      body: JSON.stringify({ nom, pieces }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -57,7 +58,6 @@ function PageEnvoyerDemande() {
   return (
     <>
       <h1>Envoyer une demande spéciale</h1>
-  
 
       <ListePieces
         pieces={listePieces}
@@ -66,7 +66,12 @@ function PageEnvoyerDemande() {
         setListePieces={setListePieces}
       />
 
-      <Button onClick={envoyerDemande}>Envoyer la demande</Button>
+      <div class="d-grid gap-2 col-6 mx-auto">
+        <Button onClick={envoyerDemande}>Envoyer la demande</Button>
+        <Link to="/afficherHistorique">
+          <Button className="ml-5" variant="success">Consulter Ma Liste</Button>
+        </Link>
+      </div>
 
       {afficherConfirmation()}
     </>
