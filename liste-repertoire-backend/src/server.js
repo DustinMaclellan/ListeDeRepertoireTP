@@ -124,7 +124,7 @@ app.get('/api/demandes/:nomClient', (requete, reponse) => {
     const nomClient = requete.params.nomClient;
 
     utiliserDB(async (db) => {
-        const listeDemandesClient = await db.collection('demandes').findOne({ NomClient: nomClient})
+        const listeDemandesClient = await db.collection('demandes').findOne({ nomClient: nomClient})
         reponse.status(200).json(listeDemandesClient);
     }, reponse).catch(
         () => reponse.status(500).send("Erreur lors de la requête")
