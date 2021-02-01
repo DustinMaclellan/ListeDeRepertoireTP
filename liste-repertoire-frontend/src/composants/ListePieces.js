@@ -1,10 +1,10 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, version } from "react";
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FormControl } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function ListePieces({
   pieces,
@@ -13,6 +13,7 @@ function ListePieces({
   setListePieces,
   demandePieces,
   setDemandePieces,
+  versionAdmin,
 }) {
   const [rechercheCat, setRechercheCat] = useState("");
   const [rechercheArtiste, setRechercheArtiste] = useState("");
@@ -149,21 +150,51 @@ function ListePieces({
                 );
               }
             } else {
-              return (
-                <tr>
-                  <td>{piece.titre}</td>
-                  <td>{piece.artiste}</td>
-                  <td>
-                    {piece.categories.map((categorie, index) => {
-                      if (index === piece.categories.length - 1) {
-                        return <>{categorie}</>;
-                      } else {
-                        return <>{categorie} - </>;
-                      }
-                    })}
+              if (versionAdmin) {
+                return (
+                  <tr>
+                    <td>{piece.titre}</td>
+                    <td>{piece.artiste}</td>
+                    <td>
+                      {piece.categories.map((categorie, index) => {
+                        if (index === piece.categories.length - 1) {
+                          return <>{categorie}</>;
+                        } else {
+                          return <>{categorie} - </>;
+                        }
+                      })}
+                    </td>
+                    <td>
+                    <Link to={`/modifier/${piece._id}`}>
+                      <Button variant="success" className="m-1" size="sm">
+                        Modifier
+                      </Button>
+                    </Link>
+                    <Link to={`/supprimer/${piece._id}`}>
+                      <Button variant="danger" className="m-1" size="sm">
+                        Supprimer
+                      </Button>
+                    </Link>
                   </td>
-                </tr>
-              );
+                  </tr>
+                );               
+              } else {
+                return (
+                  <tr>
+                    <td>{piece.titre}</td>
+                    <td>{piece.artiste}</td>
+                    <td>
+                      {piece.categories.map((categorie, index) => {
+                        if (index === piece.categories.length - 1) {
+                          return <>{categorie}</>;
+                        } else {
+                          return <>{categorie} - </>;
+                        }
+                      })}
+                    </td>
+                  </tr>
+                );
+              }
             }
           })}
         </tbody>
@@ -291,15 +322,21 @@ function ListePieces({
               </InputGroup.Append>
             </InputGroup>
           </th>
+          {()=>{
+            if(versionAdmin){
+              return( <th/>)
+            }
+          }}
         </thead>
         {RenduBodyTable()}
       </Table>
 
       {RenduRepertoireVide()}
-
+      
       <Button variant="outline-danger" onClick={() => SupprimerFiltres()}>
         Supprimer tous les Filtres
       </Button>
+      <br/>
     </>
   );
 }
