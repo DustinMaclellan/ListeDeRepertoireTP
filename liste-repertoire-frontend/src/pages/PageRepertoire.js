@@ -4,6 +4,7 @@ import ListePieces from "../composants/ListePieces";
 
 function PageRepertoire() {
   const [pieces, setListePieces] = useState([]);
+  const [demandePieces, setDemandesPieces] = useState(false);
 
   useEffect(() => {
     const chercherDonnees = async () => {
@@ -14,12 +15,12 @@ function PageRepertoire() {
       setListePieces(body);
     };
     chercherDonnees();
-  }, []);
+  }, [demandePieces]);
 
   return (
     <>
       <h1>Liste du répertoire</h1>
-      <ListePieces pieces={pieces} setListePieces={setListePieces} />
+      <ListePieces pieces={pieces} setListePieces={setListePieces} demandePieces ={demandePieces} setDemandePieces={setDemandesPieces} />
     </>
   );
 }
