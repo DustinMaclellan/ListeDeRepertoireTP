@@ -1,12 +1,12 @@
 import { React, useState, useEffect } from "react";
 
-import ListePiecesAdmin from "../composants/ListePiecesAdmin";
-
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import ListePieces from "../composants/ListePieces";
 
 function PageAdmin() {
   const [listePieces, setListePieces] = useState([]);
+  const [demandePieces, setDemandesPieces] = useState(false);
 
   useEffect(() => {
     const chercherDonnees = async () => {
@@ -17,7 +17,7 @@ function PageAdmin() {
       setListePieces(body);
     };
     chercherDonnees();
-  }, []);
+  }, [demandePieces]);
 
   return (
     <>
@@ -28,8 +28,9 @@ function PageAdmin() {
       </Link>
 
       <h2>Liste du répertoire</h2>
-      <ListePiecesAdmin pieces={listePieces} setListePieces={setListePieces} />
+      <ListePieces pieces={listePieces} setListePieces={setListePieces} demandePieces ={demandePieces} setDemandePieces={setDemandesPieces} versionAdmin = {true}/>
 
+      <br/>
       <Link to="/liste-demandes">
         <Button>Voir les demandes spéciales</Button>
       </Link>
