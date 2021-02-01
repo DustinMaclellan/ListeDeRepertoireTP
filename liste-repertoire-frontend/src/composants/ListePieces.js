@@ -2,6 +2,9 @@ import { React, useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import { FormControl } from "react-bootstrap";
 
 function ListePieces({
   pieces,
@@ -184,12 +187,13 @@ function ListePieces({
 
   return (
     <>
-      <Table>
+      <Table striped hover>
         <thead>
           <th>
             Titre{" "}
             <Button
               size="sm"
+              variant="outline-primary"
               onClick={() => {
                 setDirectionTrieTitre(
                   directionTrieTitre === "asc" ? "desc" : "asc"
@@ -199,27 +203,31 @@ function ListePieces({
             >
               {directionTrieTitre === "asc" ? "▼" : "▲"}
             </Button>
-            <br />
-            <input
-              type="text"
-              placeholder="filtre par titre"
-              value={rechercheTitre}
-              onChange={(e) => setRechercheTitre(e.target.value)}
-            />
-            <Button
-              size="sm"
-              variant="danger"
-              onClick={() => {
-                setRechercheTitre("");
-              }}
-            >
-              Clear
-            </Button>
+            <InputGroup size="sm" className="mt-1">
+              <FormControl
+                placeholder="Filtrer les titres"
+                value={rechercheTitre}
+                onChange={(e) => setRechercheTitre(e.target.value)}
+              ></FormControl>
+              <InputGroup.Append>
+                {" "}
+                <Button
+                  size="sm"
+                  variant="danger"
+                  onClick={() => {
+                    setRechercheTitre("");
+                  }}
+                >
+                  Clear
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
           </th>
           <th>
             Artiste{" "}
             <Button
               size="sm"
+              variant="outline-primary"
               onClick={() => {
                 setDirectionTrieArtiste(
                   directionTrieArtiste === "asc" ? "desc" : "asc"
@@ -229,27 +237,31 @@ function ListePieces({
             >
               {directionTrieArtiste === "asc" ? "▼" : "▲"}
             </Button>
-            <br />
-            <input
-              type="text"
-              placeholder="filtre par artiste"
-              value={rechercheArtiste}
-              onChange={(e) => setRechercheArtiste(e.target.value)}
-            />
-            <Button
-              size="sm"
-              variant="danger"
-              onClick={() => {
-                setRechercheArtiste("");
-              }}
-            >
-              Clear
-            </Button>
+            <InputGroup size="sm" className="mt-1">
+              <FormControl
+                placeholder="Filtrer les artistes"
+                value={rechercheArtiste}
+                onChange={(e) => setRechercheArtiste(e.target.value)}
+              ></FormControl>
+              <InputGroup.Append>
+                {" "}
+                <Button
+                  size="sm"
+                  variant="danger"
+                  onClick={() => {
+                    setRechercheArtiste("");
+                  }}
+                >
+                  Clear
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
           </th>
           <th>
             Catégories{" "}
             <Button
               size="sm"
+              variant="outline-primary"
               onClick={() => {
                 setDirectionTrieCategorie(
                   directionTrieCategorie === "asc" ? "desc" : "asc"
@@ -259,22 +271,25 @@ function ListePieces({
             >
               {directionTrieCategorie === "asc" ? "▼" : "▲"}
             </Button>
-            <br />
-            <input
-              type="text"
-              placeholder="filtre par catégorie"
-              value={rechercheCat}
-              onChange={(e) => setRechercheCat(e.target.value)}
-            />
-            <Button
-              size="sm"
-              variant="danger"
-              onClick={() => {
-                setRechercheCat("");
-              }}
-            >
-              Clear
-            </Button>
+            <InputGroup size="sm" className="mt-1">
+              <FormControl
+                placeholder="Filtrer les catégories"
+                value={rechercheCat}
+                onChange={(e) => setRechercheCat(e.target.value)}
+              ></FormControl>
+              <InputGroup.Append>
+                {" "}
+                <Button
+                  size="sm"
+                  variant="danger"
+                  onClick={() => {
+                    setRechercheCat("");
+                  }}
+                >
+                  Clear
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
           </th>
         </thead>
         {RenduBodyTable()}
@@ -282,8 +297,8 @@ function ListePieces({
 
       {RenduRepertoireVide()}
 
-      <Button variant="danger" onClick={() => SupprimerFiltres()}>
-        Supprimer Filtres
+      <Button variant="outline-danger" onClick={() => SupprimerFiltres()}>
+        Supprimer tous les Filtres
       </Button>
     </>
   );
