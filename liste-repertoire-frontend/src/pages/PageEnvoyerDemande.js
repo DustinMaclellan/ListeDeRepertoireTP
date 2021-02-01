@@ -9,6 +9,7 @@ function PageEnvoyerDemande() {
   const [listePieces, setListePieces] = useState([]);
   const [listeDemandes, setListeDemandes] = useState({});
   const [confirmation, setConfirmation] = useState(false);
+  const [demandePieces, setDemandesPieces] = useState(false);
 
   useEffect(() => {
     const chercherDonnees = async () => {
@@ -19,7 +20,7 @@ function PageEnvoyerDemande() {
       setListePieces(body);
     };
     chercherDonnees();
-  }, []);
+  }, [demandePieces]);
 
   const envoyerDemande = async () => {
     const pieces = Object.values(listeDemandes);
@@ -64,6 +65,7 @@ function PageEnvoyerDemande() {
         handleClick={handleClickPiece}
         listeDemandes={listeDemandes}
         setListePieces={setListePieces}
+        demandePieces ={demandePieces} setDemandePieces={setDemandesPieces}
       />
 
       <div class="d-grid gap-2 col-6 mx-auto">
