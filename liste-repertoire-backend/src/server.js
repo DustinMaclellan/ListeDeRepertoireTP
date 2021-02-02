@@ -124,24 +124,35 @@ app.get('/api/demandes/:nomClient', (requete, reponse) => {
     const nomClient = requete.params.nomClient;
 
     utiliserDB(async (db) => {
-        const listeDemandesClient = await db.collection('demandes').findOne({ nomClient: nomClient})
+        const listeDemandesClient = await db.collection('demandes').find({ nomClient: nomClient}).toArray();
         reponse.status(200).json(listeDemandesClient);
     }, reponse).catch(
         () => reponse.status(500).send("Erreur lors de la requête")
-        
     );
 });
 
 app.get('/api/demandes/:nomClient/:dateAjout', (requete, reponse) => {
     const nomClient = requete.params.nomClient;
     const dateAjout = requete.params.dateAjout;
+    const listePieces = [];
 
-    utiliserDB(async (db) => {
-        const listeDemandesClient = await db.collection('demandes').find({ nomClient: nomClient, dateAjout: dateAjout}).toArray();
-        reponse.status(200).json(listeDemandesClient);
-    }, reponse).catch(
-        () => reponse.status(500).send("Erreur lors de la requête")
-    );
+    if(nomClient !== undefined && dateAjout !== undefined) {
+        utiliserDB(async (db) => {
+            const listeDemandesClient = await db.collection('demandes').find({ nomClient: nomClient, dateAjout: dateAjout}).toArray();
+            listeDemandesClient.forEach(element => {
+                listePieces.push(element.pieces);
+                console.log(listePieces);
+            });
+            reponse.status(200).json(listePieces);
+        }, reponse).catch(
+            () => reponse.status(500).send("Erreur lors de la requête")
+        );
+    }
+    else{
+         reponse.status(500).send(`Certains paramètres ne sont pas définis :
+            - nomClient: ${nomClient}
+            - dateAjout: ${dateAjout}`);
+    }
 });
 
 app.put('/api/demandes/ajouter', (requete, reponse) => {
