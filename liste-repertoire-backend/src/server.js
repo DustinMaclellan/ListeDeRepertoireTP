@@ -111,36 +111,6 @@ app.delete('/api/pieces/supprimer/:id', (requete, reponse) => {
 
 // Demandes
 
-app.put('/api/demandes/supprimer/:idDemande/:titre', (requete, reponse) => {
-    const idDemande = requete.params.idDemande;
-    const titre = requete.params.titre;
-    const titreAjuste = titre.replace(/%20/g, " ");
-
-    utiliserDB(async (db) => {
-        
-        var id = ObjectID.createFromHexString(idDemande)
-        
-        if (await db.collection('demandes').findOne({_id : id})) {
-            await db.collection('demandes').updateOne({_id : id}, {
-                '$pull' : {
-                    pieces : {
-                        titre : titreAjuste
-                    }
-                }
-            });
-            reponse.status(200).send("La chansons " + titreAjuste + " est supprimée");
-        }
-        else{
-            
-            reponse.status(200).send("Pas de demandes trouvées");
-        }
-  
-        
-    }, reponse).catch(
-        () => reponse.status(500).send("erreur" + titreAjuste)
-    );
-});
-
 app.get('/api/demandes', (requete, reponse) => {
     utiliserDB(async (db) => {
         const listeDemandes = await db.collection('demandes').find().toArray();
@@ -168,17 +138,6 @@ app.put('/api/demandes/ajouter', (requete, reponse) => {
 
     if (nom !== undefined && pieces !== undefined) {
             utiliserDB(async (db) => {  
-                if(await db.collection('demandes').findOne({ nomClient: nom})){
-                    await db.collection('demandes').updateOne({ nomClient: nom }, {
-                        '$addToSet': {
-                            pieces: { 
-                                '$each': pieces
-                            }
-                        }
-                    });
-                    reponse.status(200).send("Demande modifier");
-                }
-                else {
                     await db.collection('demandes').insertOne({
                         nomClient: nom,
                         pieces: pieces,
@@ -186,7 +145,6 @@ app.put('/api/demandes/ajouter', (requete, reponse) => {
                         actif: 1
                     });
                     reponse.status(200).send("Demande ajouter");
-                }
             }, reponse).catch(
                 () => reponse.status(500).send("Erreur : la demande n'a pas été ajouter")
             );
