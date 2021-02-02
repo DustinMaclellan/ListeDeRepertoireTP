@@ -65,13 +65,14 @@ function PageEnvoyerDemande() {
         handleClick={handleClickPiece}
         listeDemandes={listeDemandes}
         setListePieces={setListePieces}
-        demandePieces ={demandePieces} setDemandePieces={setDemandesPieces}
+        demandePieces={demandePieces} setDemandePieces={setDemandesPieces}
       />
 
-      <div class="d-grid gap-2 col-6 mx-auto">
-        <Button onClick={envoyerDemande}>Envoyer la demande</Button>
+
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <Button onClick={envoyerDemande}>Envoyer la demande</Button>
         <Link to="/afficherHistorique">
-          <Button className="ml-5" variant="success">Consulter Ma Liste</Button>
+          <Button className="ml-1" variant="success">Consulter Ma Liste</Button>
         </Link>
       </div>
 
