@@ -132,16 +132,32 @@ app.get('/api/demandes/:nomClient', (requete, reponse) => {
     );
 });
 
+app.get('/api/demandes/:nomClient/:dateAjout', (requete, reponse) => {
+    const nomClient = requete.params.nomClient;
+    const dateAjout = requete.params.dateAjout;
+
+    utiliserDB(async (db) => {
+        const listeDemandesClient = await db.collection('demandes').find({ nomClient: nomClient, dateAjout: dateAjout}).toArray();
+        reponse.status(200).json(listeDemandesClient);
+    }, reponse).catch(
+        () => reponse.status(500).send("Erreur lors de la requête")
+    );
+});
+
 app.put('/api/demandes/ajouter', (requete, reponse) => {
     const { nom, pieces } = requete.body;
-    var objet_Date = new Date();
+    let date_ob = new Date();
+    let jour = ("0" + date_ob.getDate()).slice(-2);
+    let mois = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+    let annee = date_ob.getFullYear();
 
+    var dateAujourdhui = (annee + "-" + mois + "-" + jour)
     if (nom !== undefined && pieces !== undefined) {
             utiliserDB(async (db) => {  
                     await db.collection('demandes').insertOne({
                         nomClient: nom,
                         pieces: pieces,
-                        dateAjout: objet_Date,
+                        dateAjout: dateAujourdhui,
                         actif: 1
                     });
                     reponse.status(200).send("Demande ajouter");
@@ -153,7 +169,7 @@ app.put('/api/demandes/ajouter', (requete, reponse) => {
         reponse.status(500).send(`Certains paramètres ne sont pas définis :
             - nom: ${nom}
             - pieces: ${pieces}
-            - ajoutDate : ${objet_Date}`);
+            - ajoutDate : ${dateAujourdhui}`);
     }
 });
 
