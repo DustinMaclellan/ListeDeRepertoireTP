@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { MongoClient, ObjectID } from 'mongodb';
+import { MongoClient, ObjectId, ObjectID } from 'mongodb';
 
 const app = express();
 
@@ -111,21 +111,23 @@ app.delete('/api/pieces/supprimer/:id', (requete, reponse) => {
 
 // Demandes
 
-app.delete('/api/demandes/supprimer/:nomClient/:idPiece', (requete, reponse) => {
-    const id = requete.params.idPiece;
-    const NomClient = requete.params.nomClient
+app.delete('/api/demandes/supprimer/:idDemande/:idPiece', (requete, reponse) => {
+    const idDemande = requete.params.idDemande;
+    const idPiece = requete.params.idPiece
 
     utiliserDB(async (db) => {
-        var objectId = ObjectID.createFromHexString(id);
-            await db.collection('demandes').updateOne(
-                {nomClient : NomClient},
-                { $pull : {pieces : { _id  : objectId }}},
-                {multi : true}
-            );
+        var objectIdPiece = ObjectID.createFromHexString(idPiece);
+            await db.collection('demandes').updateOne({_id : idDemande}, {
+                '$pull' : {
+                    pieces : {
+                        _id : idPiece
+                    }
+                }
+            });
 
-        reponse.status(200).send("ok");
+        reponse.status(200).send("ok" + ObjectId(idDemande) + " " + objectIdPiece);
     }, reponse).catch(
-        () => reponse.status(500).send("Erreur : la pièce n'a pas été supprimée")
+        () => reponse.status(500).send("Erreur : la pièce n'a pas été supprimée" + idDemande + " " + idPiece)
     );
 });
 
@@ -155,10 +157,10 @@ app.put('/api/demandes/ajouter', (requete, reponse) => {
     var objet_Date = new Date();
 
     if (nom !== undefined && pieces !== undefined) {
-            utiliserDB(async (db) => {
+            utiliserDB(async (db) => {  
                 if(await db.collection('demandes').findOne({ nomClient: nom})){
                     await db.collection('demandes').updateOne({ nomClient: nom }, {
-                        '$push': {
+                        '$addToSet': {
                             pieces: { 
                                 '$each': pieces
                             }
