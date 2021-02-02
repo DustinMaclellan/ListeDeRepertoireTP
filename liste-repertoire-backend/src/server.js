@@ -134,14 +134,13 @@ app.get('/api/demandes/:nomClient', (requete, reponse) => {
 app.get('/api/demandes/:nomClient/:dateAjout', (requete, reponse) => {
     const nomClient = requete.params.nomClient;
     const dateAjout = requete.params.dateAjout;
-    const listePieces = [];
+    const listePieces = null;
 
     if(nomClient !== undefined && dateAjout !== undefined) {
         utiliserDB(async (db) => {
             const listeDemandesClient = await db.collection('demandes').find({ nomClient: nomClient, dateAjout: dateAjout}).toArray();
             listeDemandesClient.forEach(element => {
                 listePieces.push(element.pieces);
-                console.log(listePieces);
             });
             reponse.status(200).json(listePieces);
         }, reponse).catch(
