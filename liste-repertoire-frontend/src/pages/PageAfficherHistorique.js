@@ -7,19 +7,18 @@ import { Link } from 'react-router-dom';
 function AfficherHistorique() {
 
     const nom = sessionStorage.getItem('user');
-    // objet    
     const [listeDemandes, setListeDemandes] = useState({ _id: "", nomClient: "", pieces: [] });
     const [verification, setVerification] = useState(false);
     const [affichage, setAffichage] = useState(true);
-  
+
     useEffect(() => {
         const chercherDemandes = async () => {
             const resultat = await fetch(`/api/demandes/${nom}`);
             const body = await resultat.json().catch((error) => { console.log(error) });
-            if(body !== null){
+            if (body !== null) {
                 setListeDemandes(body);
             }
-            else{
+            else {
                 setAffichage(false)
             }
         };
@@ -29,14 +28,13 @@ function AfficherHistorique() {
     const demande = Object.values(listeDemandes)
 
     const confirmerSuppression = async (id) => {
-        await fetch(`/api/demandes/supprimer/${nom}/${id}`, {
-            method: 'updateOne',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+        if (listeDemandes !== null) {
+            await fetch(`/api/demandes/supprimer/${demande[0]}/${id}`, {
+                method: 'updateOne',
+            });
 
-        setVerification(true);
+            setVerification(true);
+        }
     };
 
     function affichageConfirmation() {
@@ -47,21 +45,18 @@ function AfficherHistorique() {
                 </>
             )
         }
-
     }
 
     function demandeVideMessage() {
         return (
             <>
                 <div class="p-3 mb-2 bg-danger text-white">Votre Liste est vide</div>
-               
             </>
         )
     }
 
     return (
         <>
-          
             {affichageConfirmation()}
             <h1>Mes demandes spéciales</h1>
             <ListGroup>
@@ -71,7 +66,6 @@ function AfficherHistorique() {
             </ListGroup>
             <ListGroup>
                 <ListGroup.Item className={affichage === true ? "d-block" : "d-none"}>
-
                     <Table striped bordered hover >
                         <thead>
                             <tr>
@@ -97,10 +91,9 @@ function AfficherHistorique() {
                                             </ol>
                                         </td>
                                         <td>
-
-                                            <Button variant="danger" onClick={() => confirmerSuppression(chansons._id)}>Supprimer  = {chansons._id}</Button>
-                                            {console.log(chansons._id + nom + verification)}
-
+                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                                <Button variant="danger" onClick={() => confirmerSuppression(chansons._id)}>Supprimer</Button>
+                                            </div>
                                         </td>
                                     </tr>
                                 )
@@ -109,9 +102,11 @@ function AfficherHistorique() {
                     </Table>
                 </ListGroup.Item>
             </ListGroup>
-            <Link to="/demande-speciale">
-                <Button variant="success">Ajouter des Pieces</Button>
-            </Link>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <Link to="/demande-speciale">
+                    <Button variant="success">Ajouter des Pieces</Button>
+                </Link>
+            </div>
         </>
     )
 }
