@@ -134,7 +134,7 @@ app.get('/api/demandes/:nomClient', (requete, reponse) => {
 app.get('/api/demandes/:nomClient/:dateAjout', (requete, reponse) => {
     const nomClient = requete.params.nomClient;
     const dateAjout = requete.params.dateAjout;
-    const listePieces = null;
+    const listePieces = [];
 
     if(nomClient !== undefined && dateAjout !== undefined) {
         utiliserDB(async (db) => {
