@@ -1,10 +1,7 @@
-import react from 'react'
-import FormulaireNouvelUtilisateur from '../composants/FormulaireNouvelUtilisateur';
+import FormulaireNouvelUtilisateur from "../composants/FormulaireNouvelUtilisateur";
 
 function PageAjoutUtlisateur() {
-    return (
-        <FormulaireNouvelUtilisateur />   
-    )
+  return <FormulaireNouvelUtilisateur />;
 }
 
 export default PageAjoutUtlisateur;

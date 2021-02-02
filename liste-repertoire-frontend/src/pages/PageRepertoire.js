@@ -20,7 +20,12 @@ function PageRepertoire() {
   return (
     <>
       <h1>Liste du répertoire</h1>
-      <ListePieces pieces={pieces} setListePieces={setListePieces} demandePieces ={demandePieces} setDemandePieces={setDemandesPieces} />
+      <ListePieces
+        pieces={pieces}
+        setListePieces={setListePieces}
+        demandePieces={demandePieces}
+        setDemandePieces={setDemandesPieces}
+      />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { React, useState, useEffect, version } from "react";
+import { React, useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
@@ -25,9 +25,8 @@ function ListePieces({
 
   useEffect(() => {
     FiltrerChamp();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rechercheTitre, rechercheArtiste, rechercheCat]);
-
-  console.log(pieces);
 
   function TrierAsc(champ) {
     return function (a, b) {
@@ -39,6 +38,7 @@ function ListePieces({
       return 0;
     };
   }
+
   function TrierDesc(champ) {
     return function (a, b) {
       if (a[champ] > b[champ]) {
@@ -75,7 +75,7 @@ function ListePieces({
   function FiltrerChamp() {
     var listeTemp = [];
 
-    if (rechercheArtiste == "" && rechercheTitre == "" && rechercheCat == "") {
+    if (rechercheArtiste === "" && rechercheTitre === "" && rechercheCat === "") {
       setDemandePieces(!demandePieces);
     }
 

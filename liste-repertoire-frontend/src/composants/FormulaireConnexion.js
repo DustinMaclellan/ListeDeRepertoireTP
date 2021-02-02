@@ -1,37 +1,34 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
-import { UtiliserAuth } from '../context/auth';
+import { UtiliserAuth } from "../context/auth";
 
 function FormulaireLogin() {
-
-  const { setAuthentification,setAuthentificationAdmin } = UtiliserAuth();
+  const { setAuthentification, setAuthentificationAdmin } = UtiliserAuth();
   const [nomUtilisateur, setNomUtilisateur] = useState();
   const [motDePasse, setMotDePasse] = useState();
   const [rediriger, setRediriger] = useState();
 
-  
   sessionStorage.clear(); //valider necessite
 
   const validationBaseDeDonnees = async () => {
     const resultat = await fetch(`/api/utilisateur/verification`, {
-        method: 'post',
-        body: JSON.stringify({ nomUtilisateur,motDePasse }),
-        headers: {
-            'Content-Type': 'application/json'
-        }
+      method: "post",
+      body: JSON.stringify({ nomUtilisateur, motDePasse }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
-    
+
     const body = await resultat.json().catch((error) => {
       console.log(error);
     });
 
-    if (body == "true") {
+    if (body === "true") {
       setAuthentification(true);
       setRediriger(true);
-      sessionStorage.setItem('user',nomUtilisateur);
-    }
-    else if( body == "admin"){
+      sessionStorage.setItem("user", nomUtilisateur);
+    } else if (body === "admin") {
       setAuthentificationAdmin(true);
       setAuthentification(true);
       setRediriger(true);
@@ -39,13 +36,9 @@ function FormulaireLogin() {
       alert("Il n'existe pas de login");
     }
   };
-  console.log(sessionStorage.getItem('user'));
-  
-
-
 
   function afficherRedirection() {
-    if (rediriger === true && nomUtilisateur == "admin") {
+    if (rediriger === true && nomUtilisateur === "admin") {
       return <Redirect to="/admin"></Redirect>;
     }
 

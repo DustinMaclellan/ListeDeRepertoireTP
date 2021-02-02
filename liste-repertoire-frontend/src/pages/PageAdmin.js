@@ -28,9 +28,15 @@ function PageAdmin() {
       </Link>
 
       <h2>Liste du répertoire</h2>
-      <ListePieces pieces={listePieces} setListePieces={setListePieces} demandePieces ={demandePieces} setDemandePieces={setDemandesPieces} versionAdmin = {true}/>
+      <ListePieces
+        pieces={listePieces}
+        setListePieces={setListePieces}
+        demandePieces={demandePieces}
+        setDemandePieces={setDemandesPieces}
+        versionAdmin={true}
+      />
 
-      <br/>
+      <br />
       <Link to="/liste-demandes">
         <Button>Voir les demandes spéciales</Button>
       </Link>

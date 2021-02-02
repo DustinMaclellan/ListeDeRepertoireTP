@@ -1,6 +1,6 @@
-import { react, useState } from "react";
+import { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
-import { Redirect } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 
 function FormulaireNouvelUtilisateur() {
   const [nomUtilisateur, setNomUtilisateur] = useState();
@@ -27,9 +27,9 @@ function FormulaireNouvelUtilisateur() {
 
   function afficherRedirection() {
     if (rediriger === true) {
-        return <Redirect to="/connexion" />
+      return <Redirect to="/connexion" />;
     }
-}
+  }
 
   return (
     <Form className="card mt-5">
@@ -69,5 +69,3 @@ function FormulaireNouvelUtilisateur() {
 }
 
 export default FormulaireNouvelUtilisateur;
-
-

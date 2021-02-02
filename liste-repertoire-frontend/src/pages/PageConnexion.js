@@ -1,14 +1,12 @@
-import React from 'react';
-import FormulaireLogin from '../composants/FormulaireConnexion'
+import React from "react";
+import FormulaireLogin from "../composants/FormulaireConnexion";
 
 function PageConnexion() {
-
-    return(
-        <>
-        <FormulaireLogin/>
-        </>
-    )
-
+  return (
+    <>
+      <FormulaireLogin />
+    </>
+  );
 }
 
 export default PageConnexion;
