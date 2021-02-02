@@ -1,9 +1,9 @@
 import { React, useState, useEffect } from "react";
-import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import ListePieces from "../composants/ListePieces";
-import { Link } from 'react-router-dom';
+import ListePiecesDemande from "../composants/ListePiecesDemande";
+import { Link } from "react-router-dom";
 
 function PageEnvoyerDemande() {
   const [listePieces, setListePieces] = useState([]);
@@ -20,11 +20,11 @@ function PageEnvoyerDemande() {
       setListePieces(body);
     };
     chercherDonnees();
-  }, [demandePieces]);
+  }, [demandePieces, listeDemandes]);
 
   const envoyerDemande = async () => {
     const pieces = Object.values(listeDemandes);
-    const nom = sessionStorage.getItem('user');
+    const nom = sessionStorage.getItem("user");
     await fetch(`/api/demandes/ajouter`, {
       method: "put",
       body: JSON.stringify({ nom, pieces }),
@@ -62,17 +62,21 @@ function PageEnvoyerDemande() {
 
       <ListePieces
         pieces={listePieces}
+        setListePieces={setListePieces}
         handleClick={handleClickPiece}
         listeDemandes={listeDemandes}
-        setListePieces={setListePieces}
-        demandePieces={demandePieces} setDemandePieces={setDemandesPieces}
+        demandePieces={demandePieces}
+        setDemandePieces={setDemandesPieces}
       />
 
+      <ListePiecesDemande listeDemandes={listeDemandes} />
 
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <Button onClick={envoyerDemande}>Envoyer la demande</Button>
+        <Button onClick={envoyerDemande}>Envoyer la demande</Button>
         <Link to="/afficherHistorique">
-          <Button className="ml-1" variant="success">Consulter Ma Liste</Button>
+          <Button className="ml-1" variant="success">
+            Consulter Ma Liste
+          </Button>
         </Link>
       </div>
 
