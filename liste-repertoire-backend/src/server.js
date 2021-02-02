@@ -111,6 +111,24 @@ app.delete('/api/pieces/supprimer/:id', (requete, reponse) => {
 
 // Demandes
 
+app.delete('/api/demandes/supprimer/:nomClient/:idPiece', (requete, reponse) => {
+    const id = requete.params.idPiece;
+    const NomClient = requete.params.nomClient
+
+    utiliserDB(async (db) => {
+        var objectId = ObjectID.createFromHexString(id);
+            await db.collection('demandes').updateOne(
+                {nomClient : NomClient},
+                { $pull : {pieces : { _id  : objectId }}},
+                {multi : true}
+            );
+
+        reponse.status(200).send("ok");
+    }, reponse).catch(
+        () => reponse.status(500).send("Erreur : la pièce n'a pas été supprimée")
+    );
+});
+
 app.get('/api/demandes', (requete, reponse) => {
     utiliserDB(async (db) => {
         const listeDemandes = await db.collection('demandes').find().toArray();
@@ -128,6 +146,7 @@ app.get('/api/demandes/:nomClient', (requete, reponse) => {
         reponse.status(200).json(listeDemandesClient);
     }, reponse).catch(
         () => reponse.status(500).send("Erreur lors de la requête")
+        
     );
 });
 
