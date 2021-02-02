@@ -111,23 +111,33 @@ app.delete('/api/pieces/supprimer/:id', (requete, reponse) => {
 
 // Demandes
 
-app.delete('/api/demandes/supprimer/:idDemande/:idPiece', (requete, reponse) => {
+app.put('/api/demandes/supprimer/:idDemande/:titre', (requete, reponse) => {
     const idDemande = requete.params.idDemande;
-    const idPiece = requete.params.idPiece
+    const titre = requete.params.titre;
+    const titreAjuste = titre.replace(/%20/g, " ");
 
     utiliserDB(async (db) => {
-        var objectIdPiece = ObjectID.createFromHexString(idPiece);
-            await db.collection('demandes').updateOne({_id : idDemande}, {
+        
+        var id = ObjectID.createFromHexString(idDemande)
+        
+        if (await db.collection('demandes').findOne({_id : id})) {
+            await db.collection('demandes').updateOne({_id : id}, {
                 '$pull' : {
                     pieces : {
-                        _id : idPiece
+                        titre : titreAjuste
                     }
                 }
             });
-
-        reponse.status(200).send("ok" + ObjectId(idDemande) + " " + objectIdPiece);
+            reponse.status(200).send("La chansons " + titreAjuste + " est supprimée");
+        }
+        else{
+            
+            reponse.status(200).send("Pas de demandes trouvées");
+        }
+  
+        
     }, reponse).catch(
-        () => reponse.status(500).send("Erreur : la pièce n'a pas été supprimée" + idDemande + " " + idPiece)
+        () => reponse.status(500).send("erreur" + titreAjuste)
     );
 });
 
