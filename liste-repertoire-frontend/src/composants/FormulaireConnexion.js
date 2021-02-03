@@ -9,7 +9,7 @@ function FormulaireLogin() {
   const [motDePasse, setMotDePasse] = useState();
   const [rediriger, setRediriger] = useState();
 
-  sessionStorage.clear(); //valider necessite
+  sessionStorage.clear(); 
 
   const validationBaseDeDonnees = async () => {
     const resultat = await fetch(`/api/utilisateur/verification`, {
@@ -28,10 +28,14 @@ function FormulaireLogin() {
       setAuthentification(true);
       setRediriger(true);
       sessionStorage.setItem("user", nomUtilisateur);
+      sessionStorage.setItem('token',true);
     } else if (body === "admin") {
       setAuthentificationAdmin(true);
       setAuthentification(true);
       setRediriger(true);
+      sessionStorage.setItem("user", nomUtilisateur);
+      sessionStorage.setItem('tokenAdmin',true);
+      sessionStorage.setItem('token',true);
     } else {
       alert("Il n'existe pas de login");
     }
