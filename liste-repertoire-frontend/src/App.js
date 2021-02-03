@@ -23,8 +23,8 @@ import { useState } from "react";
 
 function App() {
 
-  const [authentification, setAuthentification] = useState(false);
-  const [authentificationAdmin, setAuthentificationAdmin] = useState(false);
+  const [authentification, setAuthentification] = useState(sessionStorage.getItem('token'));
+  const [authentificationAdmin, setAuthentificationAdmin] = useState(sessionStorage.getItem('tokenAdmin'));
 
   return (
     <ContexteAuth.Provider value={{authentification, authentificationAdmin,setAuthentification,setAuthentificationAdmin}}>
