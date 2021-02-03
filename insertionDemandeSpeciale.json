@@ -1,48 +1,48 @@
 [{
-    "NomClient": "Sylvain",
+    "nomClient": "Sylvain",
     "pieces": [
         {
             "titre": "First Date",
             "artiste": "Blink-182",
-            "categories": ["Pop Rock", ""]
+            "categories": ["Pop Rock"]
         },{
             "titre": "Beer Can",
             "artiste": "Luke Combs",
             "categories": ["Country", "Jazz"]
         }
     ],
-    "DateAjout": "",
+    "dateAjout": "2020-12-01",
     "actif": 1
 },
 {
-    "NomClient": "Dustin",
+    "nomClient": "Dustin",
     "pieces": [
         {
             "titre": "First Date",
             "artiste": "Blink-182",
-            "categories": ["Pop Rock", ""]
+            "categories": ["Pop Rock"]
         },{
             "titre": "Cover me up",
             "artiste": "Morgan Wallen",
             "categories": ["Country", "Anglais"]
         }
     ],
-    "DateAjout": "",
+    "dateAjout": "2020-11-21",
     "actif": 1
 },
 {
-    "NomClient": "Yassine",
+    "nomClient": "Yassine",
     "pieces": [
         {
             "titre": "First Date",
             "artiste": "Blink-182",
-            "categories": ["Pop Rock", ""]
+            "categories": ["Pop Rock"]
         },{
             "titre": "Rival",
             "artiste": "LANCO",
             "categories": ["Country", "Smooth"]
         }
     ],
-    "DateAjout": "",
+    "dateAjout": "2021-01-31",
     "actif": 1
 }]
