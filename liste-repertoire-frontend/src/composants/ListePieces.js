@@ -106,6 +106,11 @@ function ListePieces({
     setRechercheCat("");
   }
 
+  const styleSelection = {
+    background: "rgba(36, 104, 255, 0.61)",
+    color: "white",
+}
+
   function RenduBodyTable() {
     if (pieces?.length) {
       return (
@@ -117,7 +122,7 @@ function ListePieces({
                   <tr
                     key={piece._id}
                     onClick={() => handleClick(piece._id)}
-                    className="bg-info"
+                    style = {styleSelection}
                   >
                     <td>{piece.titre}</td>
                     <td>{piece.artiste}</td>
