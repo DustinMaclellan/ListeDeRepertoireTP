@@ -1,114 +1,86 @@
-import { React, useState, useEffect } from 'react';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
+import { React, useState, useEffect } from "react";
+import ListGroup from "react-bootstrap/ListGroup";
+import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
+import Alert from "react-bootstrap/Alert";
 
 function AfficherHistorique() {
+  const nom = sessionStorage.getItem("user");
+  const [listeDemandes, setListeDemandes] = useState([
+    { _id: "", nomClient: "", pieces: [], dateAjout: "", actif: 1 },
+  ]);
+  const [affichage, setAffichage] = useState(true);
 
-    const nom = sessionStorage.getItem('user');
-    const [listeDemandes, setListeDemandes] = useState({ _id: "", nomClient: "", pieces: [] });
-    const [verification, setVerification] = useState(false);
-    const [affichage, setAffichage] = useState(true);
-
-    useEffect(() => {
-        const chercherDemandes = async () => {
-            const resultat = await fetch(`/api/demandes/${nom}`);
-            const body = await resultat.json().catch((error) => { console.log(error) });
-            if (body !== null) {
-                setListeDemandes(body);
-            }
-            else {
-                setAffichage(false)
-            }
-        };
-        chercherDemandes();
-    }, []);
-
-    const demande = Object.values(listeDemandes)
-
-    const confirmerSuppression = async (id) => {
-        if (listeDemandes !== null) {
-            await fetch(`/api/demandes/supprimer/${demande[0]}/${id}`, {
-                method: 'updateOne',
-            });
-
-            setVerification(true);
-        }
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const chercherDemandes = async () => {
+      const resultat = await fetch(`/api/demandes/${nom}`);
+      const body = await resultat.json().catch((error) => {
+        console.log(error);
+      });
+      if (body.length === 0) {
+        setAffichage(false);
+      } else {
+        setListeDemandes(body);
+      }
     };
+    chercherDemandes();
+  }, []);
 
-    function affichageConfirmation() {
-        if (verification === true) {
-            return (
-                <>
-                    <div class="p-3 mb-2 bg-danger text-white">Votre chanson à bien été supprimée</div>
-                </>
-            )
-        }
-    }
-
-    function demandeVideMessage() {
-        return (
-            <>
-                <div class="p-3 mb-2 bg-danger text-white">Votre Liste est vide</div>
-            </>
-        )
-    }
-
+  function demandeVideMessage() {
     return (
-        <>
-            {affichageConfirmation()}
-            <h1>Mes demandes spéciales</h1>
-            <ListGroup>
-                <ListGroup.Item className={affichage === false ? "d-block" : "d-none"}>
-                    {demandeVideMessage()}
-                </ListGroup.Item>
-            </ListGroup>
-            <ListGroup>
-                <ListGroup.Item className={affichage === true ? "d-block" : "d-none"}>
-                    <Table striped bordered hover >
-                        <thead>
-                            <tr>
-                                <th>Titre</th>
-                                <th>Artiste</th>
-                                <th>Categories</th>
-                                <th>Supprimer Pieces</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {demande[2].map((chansons => {
-                                return (
-                                    <tr>
-                                        <td>{chansons.titre}</td>
-                                        <td>{chansons.artiste}</td>
-                                        <td>
-                                            <ol>
-                                                {chansons.categories.map((categorie => {
-                                                    return (
-                                                        <li>{categorie}</li>
-                                                    )
-                                                }))}
-                                            </ol>
-                                        </td>
-                                        <td>
-                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                                <Button variant="danger" onClick={() => confirmerSuppression(chansons._id)}>Supprimer</Button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )
-                            }))}
-                        </tbody>
-                    </Table>
-                </ListGroup.Item>
-            </ListGroup>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <Link to="/demande-speciale">
-                    <Button variant="success">Ajouter des Pieces</Button>
-                </Link>
-            </div>
-        </>
-    )
+      <>
+        <div>
+          <Alert variant="danger">
+            Vous n'avez pas de liste de demandes présentement!
+          </Alert>
+        </div>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <h1>Mes demandes spéciales</h1>
+      <br />
+      <ListGroup>
+        <ListGroup.Item className={affichage === false ? "d-block" : "d-none"}>
+          {demandeVideMessage()}
+        </ListGroup.Item>
+      </ListGroup>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Date de liste</th>
+            <th>Voir la liste</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.keys(listeDemandes).map((keys) => (
+            <tr>
+              <td>{listeDemandes[keys].dateAjout}</td>
+              <td>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                  <Link to={`/AffichageListe/${listeDemandes[keys]._id}`}>
+                    <Button variant="primary" class="btn btn-primary btn-lg">
+                      Afficher liste
+                    </Button>
+                  </Link>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+      <br />
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <Link to="/demande-speciale">
+          <Button variant="success">Ajouter une liste</Button>
+        </Link>
+      </div>
+    </>
+  );
 }
 
 export default AfficherHistorique;
