@@ -133,16 +133,12 @@ app.get('/api/demandes/:nomClient', (requete, reponse) => {
 
 app.get('/api/demandes/historique/:id', (requete, reponse) => {
     const id = requete.params.id;
-    const listePieces = [];
 
     if(id !== undefined) {
         utiliserDB(async (db) => {
             var objectId = ObjectID.createFromHexString(id);
-            const listeDemandesClient = await db.collection('demandes').find({ _id: objectId}).toArray();
-            listeDemandesClient.forEach(element => {
-                listePieces.push(element.pieces);
-            });
-            reponse.status(200).json(listePieces);
+            const DemandeClient = await db.collection('demandes').findOne({ _id: objectId});
+            reponse.status(200).json(DemandeClient.pieces);
         }, reponse).catch(
             () => reponse.status(500).send("Erreur lors de la requête")
         );
