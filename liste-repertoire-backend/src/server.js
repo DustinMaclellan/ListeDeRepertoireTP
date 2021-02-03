@@ -232,7 +232,7 @@ app.post('/api/utilisateur/verification', (requete, reponse) => {
     }
 });
 
-app.post('/api/registraire', (requete, reponse) => {
+app.post('/api/utilisateur/ajouter', (requete, reponse) => {
     const { nomUtilisateur, motDePasse } = requete.body;
 
     if (nomUtilisateur !== undefined && motDePasse !== undefined) {
