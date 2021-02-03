@@ -1,4 +1,4 @@
-import React from "react";
+import React  from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Button } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
@@ -7,11 +7,13 @@ import { UtiliserAuth } from "../context/auth";
 function BarreNavigation() {
   const { authentification, authentificationAdmin } = UtiliserAuth();
 
+
   const handleClick = () => {
     localStorage.clear();
     authentification(false);
     authentificationAdmin(false);
   };
+
 
   return (
     <Navbar className="navbar-dark bg-dark">
@@ -36,7 +38,8 @@ function BarreNavigation() {
             </Nav.Link>
           </LinkContainer>
         </Nav>
-        {authentification === true || authentificationAdmin ? (
+        {sessionStorage.getItem('token') === 'true' || authentification || authentificationAdmin? (
+          
           <LinkContainer to="/connexion">
             <Button
               className="btn btn-danger float-right"
@@ -45,6 +48,7 @@ function BarreNavigation() {
               Deconnexion
             </Button>
           </LinkContainer>
+          
         ) : (
           <LinkContainer to="/connexion">
             <Button className="btn btn-success float-right">Connexion</Button>
