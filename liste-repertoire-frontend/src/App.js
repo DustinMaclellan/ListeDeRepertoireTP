@@ -6,6 +6,7 @@ import PageModifier from "./pages/PageModifier";
 import PageSupprimer from "./pages/PageSupprimer";
 import Page404 from "./pages/Page404";
 import PageEnvoyerDemande from "./pages/PageEnvoyerDemande";
+import AffichagePieces from './pages/PageAffichagePiecesDemande'
 import AfficherHistorique from './pages/PageAfficherHistorique';
 import PageListeDemandes from "./pages/PageListeDemandes";
 import PageConnexion from "./pages/PageConnexion";
@@ -36,11 +37,12 @@ function App() {
             <Route path="/repertoire" component={PageRepertoire} />
             <RouteAdmin path="/admin" component={PageAdmin} />
             <RoutePrivee path="/demande-speciale" component={PageEnvoyerDemande} />
-            <Route path="/liste-demandes" component={PageListeDemandes} />
-            <Route path="/ajouter" component={PageAjouter} />
-            <Route path="/afficherHistorique" component={AfficherHistorique} />
-            <Route path="/modifier/:id" component={PageModifier} />
-            <Route path="/supprimer/:id" component={PageSupprimer} />
+            <RoutePrivee path="/liste-demandes" component={PageListeDemandes} />
+            <RoutePrivee path="/AffichageListe/:id" component={AffichagePieces} />
+            <RoutePrivee path="/ajouter" component={PageAjouter} />
+            <RoutePrivee path="/afficherHistorique" component={AfficherHistorique} />
+            <RoutePrivee path="/modifier/:id" component={PageModifier} />
+            <RoutePrivee path="/supprimer/:id" component={PageSupprimer} />
             <Route path="/connexion" component={PageConnexion} />
             <Route path="/creerUtilisateur" component={PageAjoutUtlisateur} />
             <Route component={Page404} />
