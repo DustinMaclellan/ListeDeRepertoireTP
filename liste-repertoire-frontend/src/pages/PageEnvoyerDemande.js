@@ -25,7 +25,6 @@ function PageEnvoyerDemande() {
   const envoyerDemande = async () => {
     const pieces = Object.values(listeDemandes);
     const nom = sessionStorage.getItem("user");
-    console.log(pieces);
     if(pieces?.length)
     {
     await fetch(`/api/demandes/ajouter`, {
@@ -75,7 +74,7 @@ function PageEnvoyerDemande() {
 
       <ListePiecesDemande listeDemandes={listeDemandes} />
 
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <div className="d-grid gap-2 d-md-flex justify-content-md-end">
         <Button onClick={envoyerDemande}>Envoyer la demande</Button>
         <Link to="/afficherHistorique">
           <Button className="ml-1" variant="success">
