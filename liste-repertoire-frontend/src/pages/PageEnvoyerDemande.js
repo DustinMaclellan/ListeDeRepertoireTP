@@ -25,6 +25,9 @@ function PageEnvoyerDemande() {
   const envoyerDemande = async () => {
     const pieces = Object.values(listeDemandes);
     const nom = sessionStorage.getItem("user");
+    console.log(pieces);
+    if(pieces?.length)
+    {
     await fetch(`/api/demandes/ajouter`, {
       method: "put",
       body: JSON.stringify({ nom, pieces }),
@@ -32,8 +35,9 @@ function PageEnvoyerDemande() {
         "Content-Type": "application/json",
       },
     });
-    setListeDemandes({});
     setConfirmation(true);
+  }
+    setListeDemandes({});
   };
 
   function handleClickPiece(id) {

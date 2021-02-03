@@ -131,14 +131,14 @@ app.get('/api/demandes/:nomClient', (requete, reponse) => {
     );
 });
 
-app.get('/api/demandes/:nomClient/:dateAjout', (requete, reponse) => {
-    const nomClient = requete.params.nomClient;
-    const dateAjout = requete.params.dateAjout;
+app.get('/api/demandes/historique/:id', (requete, reponse) => {
+    const id = requete.params.id;
     const listePieces = [];
 
-    if(nomClient !== undefined && dateAjout !== undefined) {
+    if(id !== undefined) {
         utiliserDB(async (db) => {
-            const listeDemandesClient = await db.collection('demandes').find({ nomClient: nomClient, dateAjout: dateAjout}).toArray();
+            var objectId = ObjectID.createFromHexString(id);
+            const listeDemandesClient = await db.collection('demandes').find({ _id: objectId}).toArray();
             listeDemandesClient.forEach(element => {
                 listePieces.push(element.pieces);
             });
@@ -149,8 +149,7 @@ app.get('/api/demandes/:nomClient/:dateAjout', (requete, reponse) => {
     }
     else{
          reponse.status(500).send(`Certains paramètres ne sont pas définis :
-            - nomClient: ${nomClient}
-            - dateAjout: ${dateAjout}`);
+            - id: ${id}`);
     }
 });
 
