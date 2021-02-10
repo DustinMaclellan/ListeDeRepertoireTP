@@ -3,10 +3,11 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Button } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import { UtiliserAuth } from "../context/auth";
+import { useTranslation } from 'react-i18next';
 
 function BarreNavigation() {
   const { authentification, authentificationAdmin } = UtiliserAuth();
-
+  const { t } = useTranslation();
 
   const handleClick = () => {
     localStorage.clear();
@@ -41,6 +42,7 @@ function BarreNavigation() {
         {sessionStorage.getItem('token') === 'true' || authentification || authentificationAdmin? (
           
           <LinkContainer to="/connexion">
+            {t('deconnexion')}
             <Button
               className="btn btn-danger float-right"
               onClick={handleClick}
@@ -51,6 +53,7 @@ function BarreNavigation() {
           
         ) : (
           <LinkContainer to="/connexion">
+            {t('connexion')}
             <Button className="btn btn-success float-right">Connexion</Button>
           </LinkContainer>
         )}
