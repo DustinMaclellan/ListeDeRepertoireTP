@@ -40,9 +40,7 @@ function BarreNavigation() {
           </LinkContainer>
         </Nav>
         {sessionStorage.getItem('token') === 'true' || authentification || authentificationAdmin? (
-          
           <LinkContainer to="/connexion">
-            {t('deconnexion')}
             <Button
               className="btn btn-danger float-right"
               onClick={handleClick}
@@ -50,10 +48,8 @@ function BarreNavigation() {
               Deconnexion
             </Button>
           </LinkContainer>
-          
         ) : (
           <LinkContainer to="/connexion">
-            {t('connexion')}
             <Button className="btn btn-success float-right">Connexion</Button>
           </LinkContainer>
         )}
