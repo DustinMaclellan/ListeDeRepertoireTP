@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
+
 
 function AffichagePieces({ match }) {
   const id = match.params.id;
   const [pieces, setPieces] = useState({});
+  const { t } = useTranslation();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -22,14 +25,14 @@ function AffichagePieces({ match }) {
 
   return (
     <>
-      <h1>Pieces de la demande</h1>
+      <h1>{t('piecesDeLaDemande')}</h1>
       <br />
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Titre</th>
-            <th>artiste</th>
-            <th>categories</th>
+            <th>{t('titre')}</th>
+            <th>{t('artiste')}</th>
+            <th>{t('categorie')}</th>
           </tr>
         </thead>
         <tbody>
@@ -52,7 +55,7 @@ function AffichagePieces({ match }) {
       </Table>
 
       <Link to="/afficherHistorique">
-        <Button variant="success">Retour</Button>
+        <Button variant="success">{t('retour')}</Button>
       </Link>
     </>
   );

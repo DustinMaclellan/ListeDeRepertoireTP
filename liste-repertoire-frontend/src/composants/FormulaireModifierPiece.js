@@ -3,8 +3,10 @@ import { React, useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { Redirect } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 function FormulaireModifierPiece({ id }) {
+  const { t } = useTranslation();
   const [titre, setTitre] = useState("");
   const [artiste, setArtiste] = useState("");
   const [categories, setCategories] = useState([""]);
@@ -56,7 +58,7 @@ function FormulaireModifierPiece({ id }) {
       {afficherRedirection()}
       <Form className="mb-1">
         <Form.Group>
-          <Form.Label>Titre</Form.Label>
+          <Form.Label>{t('titre')}</Form.Label>
           <Form.Control
             type="text"
             value={titre}
@@ -65,7 +67,7 @@ function FormulaireModifierPiece({ id }) {
         </Form.Group>
 
         <Form.Group>
-          <Form.Label>Artiste / Groupe</Form.Label>
+          <Form.Label>{t('artiste')}</Form.Label>
           <Form.Control
             type="text"
             value={artiste}
@@ -75,13 +77,13 @@ function FormulaireModifierPiece({ id }) {
 
         <Form.Group>
           <Form.Label>
-            Catégories
+          {t('categorie')}
             <Button
               variant="primary"
               className="ml-2"
               onClick={ajouterCategorie}
             >
-              Ajouter une catégorie
+              {t('ajouterCategorie')}
             </Button>
           </Form.Label>
           {categories.map((categorie, index) => (
@@ -100,7 +102,7 @@ function FormulaireModifierPiece({ id }) {
         </Form.Group>
 
         <Button variant="success" onClick={envoyerFormulaire}>
-          Modifier
+        {t('modifier')}
         </Button>
       </Form>
     </>

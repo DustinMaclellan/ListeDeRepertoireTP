@@ -21,7 +21,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useState } from "react";
-import Langages from './composants/Langages';
 
 function App() {
 
@@ -32,7 +31,6 @@ function App() {
     <ContexteAuth.Provider value={{authentification, authentificationAdmin,setAuthentification,setAuthentificationAdmin}}>
       <Router>
         <BarreNavigation />
-        <Langages/>
         <Container>
           <Switch>
             <Route path="/" component={PageAccueil} exact />

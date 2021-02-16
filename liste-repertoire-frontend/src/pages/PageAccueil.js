@@ -1,9 +1,13 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 
 function PageAccueil() {
+
+  const { t } = useTranslation();
+
   return (
     <>
-      <h1>Page accueil</h1>
+      <h1>{t('pageAccueil')}</h1>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec felis
         et mauris tristique ornare. Proin ante diam, aliquam ac libero vitae,

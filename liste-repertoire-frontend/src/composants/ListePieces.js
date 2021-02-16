@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 function ListePieces({
   pieces,
@@ -15,6 +16,7 @@ function ListePieces({
   setDemandePieces,
   versionAdmin,
 }) {
+  const { t } = useTranslation();
   const [rechercheCat, setRechercheCat] = useState("");
   const [rechercheArtiste, setRechercheArtiste] = useState("");
   const [rechercheTitre, setRechercheTitre] = useState("");
@@ -172,12 +174,12 @@ function ListePieces({
                     <td>
                     <Link to={`/modifier/${piece._id}`}>
                       <Button variant="success" className="m-1" size="sm">
-                        Modifier
+                      {t('modifier')}
                       </Button>
                     </Link>
                     <Link to={`/supprimer/${piece._id}`}>
                       <Button variant="danger" className="m-1" size="sm">
-                        Supprimer
+                      {t('supprimer')}
                       </Button>
                     </Link>
                   </td>
@@ -211,7 +213,7 @@ function ListePieces({
     if (!pieces?.length) {
       return (
         <Alert variant={"info"}>
-          Il n'y a pas de pièces dans le répertoire.
+          {t('pasDePiecesRepertoire')}
         </Alert>
       );
     }
@@ -226,7 +228,7 @@ function ListePieces({
       <Table striped hover>
         <thead>
           <th>
-            Titre{" "}
+          {t('titre')}{" "}
             <Button
               size="sm"
               variant="outline-primary"
@@ -260,7 +262,7 @@ function ListePieces({
             </InputGroup>
           </th>
           <th>
-            Artiste{" "}
+          {t('artiste')}{" "}
             <Button
               size="sm"
               variant="outline-primary"
@@ -294,7 +296,7 @@ function ListePieces({
             </InputGroup>
           </th>
           <th>
-            Catégories{" "}
+          {t('categorie')}{" "}
             <Button
               size="sm"
               variant="outline-primary"
@@ -339,7 +341,7 @@ function ListePieces({
       {RenduRepertoireVide()}
       
       <Button variant="outline-danger" onClick={() => SupprimerFiltres()}>
-        Supprimer tous les Filtres
+      {t('supprimerTousLesFiltres')}
       </Button>
       <br/>
     </>

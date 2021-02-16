@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { UtiliserAuth } from "../context/auth";
+import { useTranslation } from 'react-i18next';
 
 function FormulaireLogin() {
+  const { t } = useTranslation();
   const { setAuthentification, setAuthentificationAdmin } = UtiliserAuth();
   const [nomUtilisateur, setNomUtilisateur] = useState();
   const [motDePasse, setMotDePasse] = useState();
@@ -53,9 +55,9 @@ function FormulaireLogin() {
 
   return (
     <Form className="card mt-5">
-      <Card.Header as="h4">Connexion</Card.Header>
+      <Card.Header as="h4">{t('connexion')}</Card.Header>
       <Form.Group className="p-2">
-        <Form.Label>Nom Utilisateur</Form.Label>
+        <Form.Label>{t('nomUtilisateur')}</Form.Label>
         <Form.Control
           type="text"
           value={nomUtilisateur}
@@ -63,7 +65,7 @@ function FormulaireLogin() {
         />
       </Form.Group>
       <Form.Group className="p-2">
-        <Form.Label>Mot de passe</Form.Label>
+        <Form.Label>{t('motDePasse')}</Form.Label>
         <Form.Control
           type="password"
           value={motDePasse}
@@ -75,11 +77,11 @@ function FormulaireLogin() {
         size="lg"
         onClick={validationBaseDeDonnees}
       >
-        Se connecter
+        {t('connexion')}
       </Button>
       <a href="/creerUtilisateur">
         <Button className="mt-2" variant="outline-warning" size="lg">
-          Vous n'avez pas de compte ?
+        {t('vousNavezPasDeCompte')}
         </Button>
       </a>
       {afficherRedirection()}

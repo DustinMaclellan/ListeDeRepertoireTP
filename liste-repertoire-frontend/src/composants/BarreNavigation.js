@@ -4,7 +4,7 @@ import { Navbar, Button } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import { UtiliserAuth } from "../context/auth";
 import { useTranslation } from 'react-i18next';
-
+import Langages from './Langages';
 function BarreNavigation() {
   const { authentification, authentificationAdmin } = UtiliserAuth();
   const { t } = useTranslation();
@@ -14,23 +14,23 @@ function BarreNavigation() {
     authentification(false);
     authentificationAdmin(false);
   };
-
+ 
 
   return (
     <Navbar className="navbar-dark bg-dark">
-      <Navbar.Brand href="/">Maison</Navbar.Brand>
+      <Navbar.Brand href="/"> {t('Maison')}</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <LinkContainer to="/" exact>
-            <Nav.Link>Accueil</Nav.Link>
+            <Nav.Link>{t('Accueil')}</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/repertoire">
-            <Nav.Link>Repertoire</Nav.Link>
+            <Nav.Link>{t('repertoire')}</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/demande-speciale">
             <Nav.Link className={authentification ? "d-block" : "d-none"}>
-              Demande spéciale
+            {t('DemandesSpeciales')}
             </Nav.Link>
           </LinkContainer>
           <LinkContainer to="/admin">
@@ -39,18 +39,22 @@ function BarreNavigation() {
             </Nav.Link>
           </LinkContainer>
         </Nav>
+        <Langages/>
         {sessionStorage.getItem('token') === 'true' || authentification || authentificationAdmin? (
           <LinkContainer to="/connexion">
             <Button
               className="btn btn-danger float-right"
-              onClick={handleClick}
+              onClick={handleClick}    
             >
-              Deconnexion
+              {t('deconnexion')}
+
             </Button>
           </LinkContainer>
         ) : (
           <LinkContainer to="/connexion">
-            <Button className="btn btn-success float-right">Connexion</Button>
+            <Button className="btn btn-success float-right">
+            {t('connexion')}
+              </Button>
           </LinkContainer>
         )}
       </Navbar.Collapse>

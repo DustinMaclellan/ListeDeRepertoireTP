@@ -4,8 +4,10 @@ import Alert from "react-bootstrap/Alert";
 import ListePieces from "../composants/ListePieces";
 import ListePiecesDemande from "../composants/ListePiecesDemande";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 function PageEnvoyerDemande() {
+  const { t } = useTranslation();
   const [listePieces, setListePieces] = useState([]);
   const [listeDemandes, setListeDemandes] = useState({});
   const [confirmation, setConfirmation] = useState(false);
@@ -55,13 +57,13 @@ function PageEnvoyerDemande() {
 
   function afficherConfirmation() {
     if (confirmation === true) {
-      return <Alert variant="success">La demande a bien été envoyée.</Alert>;
+      return <Alert variant="success">{t('demandeBienEteEnvoyer')}</Alert>;
     }
   }
 
   return (
     <>
-      <h1>Envoyer une demande spéciale</h1>
+      <h1>{t('envoyerUneDemandeSpeciale')}</h1>
 
       <ListePieces
         pieces={listePieces}
@@ -75,10 +77,10 @@ function PageEnvoyerDemande() {
       <ListePiecesDemande listeDemandes={listeDemandes} />
 
       <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-        <Button onClick={envoyerDemande}>Envoyer la demande</Button>
+        <Button onClick={envoyerDemande}>{t('envoyerLaDemande')}</Button>
         <Link to="/afficherHistorique">
           <Button className="ml-1" variant="success">
-            Consulter Ma Liste
+          {t('consulterMaListe')}
           </Button>
         </Link>
       </div>

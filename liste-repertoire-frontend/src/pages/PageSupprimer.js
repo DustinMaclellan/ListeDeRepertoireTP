@@ -5,10 +5,12 @@ import Button from "react-bootstrap/Button";
 
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 function PageSupprimer({ match }) {
   const id = match.params.id;
   const [rediriger, setRediriger] = useState(false);
+  const { t } = useTranslation();
 
   const confirmerSuppression = async () => {
     await fetch(`/api/pieces/supprimer/${id}`, {
@@ -27,9 +29,9 @@ function PageSupprimer({ match }) {
   return (
     <>
       {AfficherRedirection()}
-      <h1>Supprimer</h1>
+      <h1>{t('supprimer')}</h1>
       <Alert variant={"danger"}>
-        Êtes-vous certain de vouloir supprimer cette pièce?
+      {t('estVousCertainDeSupprimer')}
       </Alert>
 
       <Button
@@ -37,11 +39,11 @@ function PageSupprimer({ match }) {
         className={"mr-1"}
         onClick={confirmerSuppression}
       >
-        Supprimer
+        {t('supprimer')}
       </Button>
 
       <Link to="/admin">
-        <Button variant={"danger"}>Annuler</Button>
+        <Button variant={"danger"}>{t('annuler')}</Button>
       </Link>
     </>
   );

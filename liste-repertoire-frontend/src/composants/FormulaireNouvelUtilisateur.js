@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 function FormulaireNouvelUtilisateur() {
+  const { t } = useTranslation();
   const [nomUtilisateur, setNomUtilisateur] = useState();
   const [motDePasse, setMotDePasse] = useState();
   const [confirmationMdp, setConfirm] = useState();
@@ -33,9 +35,9 @@ function FormulaireNouvelUtilisateur() {
 
   return (
     <Form className="card mt-5">
-      <Card.Header as="h4">Creer votre compte</Card.Header>
+      <Card.Header as="h4">{t('creerVotreCompte')}</Card.Header>
       <Form.Group className="p-2">
-        <Form.Label>Nom Utilisateur</Form.Label>
+        <Form.Label>{t('titre')}</Form.Label>
         <Form.Control
           type="text"
           value={nomUtilisateur}
@@ -43,7 +45,7 @@ function FormulaireNouvelUtilisateur() {
         />
       </Form.Group>
       <Form.Group className="p-2">
-        <Form.Label>Mot de passe</Form.Label>
+        <Form.Label>{t('motDePasse')}</Form.Label>
         <Form.Control
           type="password"
           value={motDePasse}
@@ -52,16 +54,16 @@ function FormulaireNouvelUtilisateur() {
       </Form.Group>
 
       <Form.Group className="p-2">
-        <Form.Label>Confirmer votre mot de passe</Form.Label>
+        <Form.Label>{t('confirmerVotreMotDePasse')}</Form.Label>
         <Form.Control
           type="password"
           value={confirmationMdp}
           onChange={(event) => setConfirm(event.target.value)}
         />
       </Form.Group>
-      <p className={toggleMdp}> Le mot de passe n'est pas le meme </p>
+      <p className={toggleMdp}>{t('motDePassePasPareil')} </p>
       <Button variant="outline-success" size="lg" onClick={envoyerFormulaire}>
-        Creer compte
+      {t('creerVotreCompte')}
       </Button>
       {afficherRedirection()}
     </Form>

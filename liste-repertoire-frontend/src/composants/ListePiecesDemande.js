@@ -1,19 +1,21 @@
 import { React } from "react";
 import Table from "react-bootstrap/Table";
+import { useTranslation } from 'react-i18next';
 
 function ListePiecesDemande(listeDemandes) {
   const listeRecu = Object.values(listeDemandes);
   const listeAffichage = Object.values(listeRecu[0]);
+  const { t } = useTranslation();
 
   return (
     <>
       <br />
-      <h2>Pièces sélectionnées</h2>
+      <h2>{t('piecesSelectionnees')}</h2>
       <Table>
         <thead>
-          <th>Titre</th>
-          <th>Artiste</th>
-          <th>Catégories</th>
+          <th>{t('titre')}</th>
+          <th>{t('artiste')}</th>
+          <th>{t('categorie')}</th>
           <th></th>
         </thead>
         <tbody>

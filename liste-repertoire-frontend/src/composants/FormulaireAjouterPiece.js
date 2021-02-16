@@ -3,19 +3,22 @@ import { React, useState } from "react";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { Redirect } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 function FormulaireAjouterPiece({ id }) {
+  const { t } = useTranslation();
   const [titre, setTitre] = useState("");
   const [artiste, setArtiste] = useState("");
   const [categories, setCategories] = useState([""]);
   const [rediriger, setRediriger] = useState(false);
+
 
   const envoyerFormulaire = async () => {
     // Enlever les chaînes vides de l'array
     const nouvellesCategories = categories.filter(
       (categorie) => categorie !== ""
     );
-
+    
     await fetch(`/api/pieces/ajouter`, {
       method: "put",
       body: JSON.stringify({ titre, artiste, categories: nouvellesCategories }),
@@ -25,6 +28,7 @@ function FormulaireAjouterPiece({ id }) {
     });
     setRediriger(true);
   };
+
 
   function afficherRedirection() {
     if (rediriger === true) {
@@ -43,7 +47,7 @@ function FormulaireAjouterPiece({ id }) {
       {afficherRedirection()}
       <Form className="mb-1">
         <Form.Group>
-          <Form.Label>Titre</Form.Label>
+          <Form.Label>{t('title')}</Form.Label>
           <Form.Control
             type="text"
             value={titre}
@@ -52,7 +56,7 @@ function FormulaireAjouterPiece({ id }) {
         </Form.Group>
 
         <Form.Group>
-          <Form.Label>Artiste / Groupe</Form.Label>
+          <Form.Label>{t('artiste')}</Form.Label>
           <Form.Control
             type="text"
             value={artiste}
@@ -62,13 +66,13 @@ function FormulaireAjouterPiece({ id }) {
 
         <Form.Group>
           <Form.Label>
-            Catégories
+          {t('categorie')}
             <Button
               variant="primary"
               className="ml-2"
               onClick={ajouterCategorie}
             >
-              Ajouter une catégorie
+              {t('ajouterCategorie')}
             </Button>
           </Form.Label>
           {categories.map((categorie, index) => (
@@ -87,7 +91,7 @@ function FormulaireAjouterPiece({ id }) {
         </Form.Group>
 
         <Button variant="success" onClick={envoyerFormulaire}>
-          Ajouter la pièce
+        {t('ajouterLaPiece')}
         </Button>
       </Form>
     </>

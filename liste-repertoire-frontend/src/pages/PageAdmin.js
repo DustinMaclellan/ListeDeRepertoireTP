@@ -3,10 +3,12 @@ import { React, useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import ListePieces from "../composants/ListePieces";
+import { useTranslation } from 'react-i18next';
 
 function PageAdmin() {
   const [listePieces, setListePieces] = useState([]);
   const [demandePieces, setDemandesPieces] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const chercherDonnees = async () => {
@@ -21,13 +23,13 @@ function PageAdmin() {
 
   return (
     <>
-      <h1>Page administrateur</h1>
+      <h1>{t('pageAdmin')}</h1>
 
       <Link to="/ajouter">
-        <Button>Ajouter une nouvelle pièce</Button>
+        <Button>{t('ajouterUneNouvellePiece')}</Button>
       </Link>
 
-      <h2>Liste du répertoire</h2>
+      <h2>{t('listeDuRepertoire')}</h2>
       <ListePieces
         pieces={listePieces}
         setListePieces={setListePieces}
@@ -38,7 +40,7 @@ function PageAdmin() {
 
       <br />
       <Link to="/liste-demandes">
-        <Button>Voir les demandes spéciales</Button>
+        <Button>{t('voirLesDemandesSpeciales')}</Button>
       </Link>
     </>
   );

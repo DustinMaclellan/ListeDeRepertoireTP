@@ -4,8 +4,10 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
+import { useTranslation } from 'react-i18next';
 
 function AfficherHistorique() {
+  const { t } = useTranslation();
   const nom = sessionStorage.getItem("user");
   const [listeDemandes, setListeDemandes] = useState([
     { _id: "", nomClient: "", pieces: [], dateAjout: "", actif: 1 },
@@ -42,7 +44,7 @@ function AfficherHistorique() {
 
   return (
     <>
-      <h1>Mes demandes spéciales</h1>
+      <h1>{t('pasDeListeDeDemmandePresentement')}</h1>
       <br />
       <ListGroup>
         <ListGroup.Item className={affichage === false ? "d-block" : "d-none"}>
@@ -52,8 +54,8 @@ function AfficherHistorique() {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Date de liste</th>
-            <th>Voir la liste</th>
+            <th>{t('dateDeListe')}</th>
+            <th>{t('voirLaListe')}</th>
           </tr>
         </thead>
         <tbody>
@@ -64,7 +66,7 @@ function AfficherHistorique() {
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                   <Link to={`/AffichageListe/${listeDemandes[keys]._id}`}>
                     <Button variant="primary" class="btn btn-primary btn-lg">
-                      Afficher liste
+                    {t('afficherListe')}
                     </Button>
                   </Link>
                 </div>
@@ -76,7 +78,7 @@ function AfficherHistorique() {
       <br />
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <Link to="/demande-speciale">
-          <Button variant="success">Ajouter une liste</Button>
+          <Button variant="success">{t('ajouterUneListe')}</Button>
         </Link>
       </div>
     </>

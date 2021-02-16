@@ -2,12 +2,14 @@ import { React, useState } from "react";
 
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
+import { useTranslation } from 'react-i18next';
 
 function ListeDemandesSpeciales({
   listeDemandes,
   setListeDemandes,
   handleClick,
 }) {
+  const { t } = useTranslation();
   const [directionTrieClient, setDirectionTrieClient] = useState("asc");
   const [directionTrieDate, setDirectionTrieDate] = useState("asc");
 
@@ -46,12 +48,12 @@ function ListeDemandesSpeciales({
   }
   return (
     <>
-      <h1>Demandes spéciales</h1>
+      <h1>{t('DemandesSpeciales')}</h1>
       <Table striped hover>
         <thead>
           <tr>
             <th>
-              Nom Client{" "}
+            {t('nomClient')}{" "}
               <Button
                 size="sm"
                 variant="outline-primary"
@@ -65,9 +67,9 @@ function ListeDemandesSpeciales({
                 {directionTrieClient === "asc" ? "▼" : "▲"}
               </Button>
             </th>
-            <th>Pieces</th>
+            <th>{t('piece')}</th>
             <th>
-              Date d'Ajout{" "}
+            {t('dateAjout')}{" "}
               <Button
                 size="sm"
                 variant="outline-primary"
@@ -81,7 +83,7 @@ function ListeDemandesSpeciales({
                 {directionTrieDate === "asc" ? "▼" : "▲"}
               </Button>
             </th>
-            <th>Modifier État</th>
+            <th>{t('modifierEtat')}</th>
           </tr>
         </thead>
         <tbody>
@@ -93,15 +95,15 @@ function ListeDemandesSpeciales({
                   {Object.keys(listeDemandes[keys].pieces).map((chanson) => (
                     <ul>
                       <li>
-                        <b>Titre:</b>{" "}
+                        <b>{t('titre')}:</b>{" "}
                         {listeDemandes[keys].pieces[chanson].titre}
                       </li>
                       <li>
-                        <b>Artiste: </b>
+                        <b>{t('artiste')}: </b>
                         {listeDemandes[keys].pieces[chanson].artiste}
                       </li>
                       <li>
-                        <b>Categories:</b>{" "}
+                        <b>{t('categorie')}:</b>{" "}
                       </li>
                       <ol>
                         {listeDemandes[keys].pieces[chanson].categories.map(
@@ -121,10 +123,10 @@ function ListeDemandesSpeciales({
                       variant="warning"
                       onClick={() => handleClick(listeDemandes[keys]._id)}
                     >
-                      Rendre inactive
+                      {t('rendreInactif')}
                     </Button>
                   ) : (
-                    <h4>Demande inactive</h4>
+                    <h4>{t('demandeInactif')}</h4>
                   )}
                 </td>
               </tr>

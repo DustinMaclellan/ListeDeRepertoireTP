@@ -1,8 +1,10 @@
 import { React, useState, useEffect } from "react";
 
 import ListePieces from "../composants/ListePieces";
+import { useTranslation } from 'react-i18next';
 
 function PageRepertoire() {
+  const { t } = useTranslation();
   const [pieces, setListePieces] = useState([]);
   const [demandePieces, setDemandesPieces] = useState(false);
 
@@ -19,7 +21,7 @@ function PageRepertoire() {
 
   return (
     <>
-      <h1>Liste du répertoire</h1>
+      <h1>{t('listeDuRepertoire')}</h1>
       <ListePieces
         pieces={pieces}
         setListePieces={setListePieces}
